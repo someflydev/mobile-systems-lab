@@ -1,0 +1,185 @@
+You are a Cross-Platform Lab Automation Architect.
+
+Your task is to design the LAB GENERATION ENGINE for mobile-systems-lab.
+
+This system must transform:
+
+LAB_SPEC.json
+
+into:
+
+- Kotlin Android implementation scaffold
+- Swift iOS implementation scaffold
+- Flutter implementation scaffold
+- React Native implementation scaffold
+
+WITHOUT manually writing each lab.
+
+----------------------------------------
+SECTION 1 — DEFINE THE LAB_SPEC CONTRACT
+----------------------------------------
+
+Refine and finalize the LAB_SPEC schema to include:
+
+- lab_id
+- difficulty_level (1–5)
+- canonical_features_used
+- sensors_used
+- storage_used
+- state_model_type
+- async_complexity
+- config_schema_version
+- ui_components_required
+- background_processing_required
+- performance_budget
+- expected_permissions
+- device_constraints
+
+Provide:
+- Full JSON schema
+- Example LAB_SPEC for:
+  LAB_02_STATEFUL_SENSOR
+  LAB_03_BACKGROUND_GPS_LOGGER
+  LAB_04_CONFIG_MUTATION_TEST
+
+----------------------------------------
+SECTION 2 — DEFINE THE MAPPING LAYER
+----------------------------------------
+
+Design a mapping system that translates canonical concepts into:
+
+Kotlin equivalents
+Swift equivalents
+Flutter equivalents
+React Native equivalents
+
+Represent this as:
+
+CANONICAL_MAPPING.json
+
+----------------------------------------
+SECTION 3 — DEFINE TEMPLATE STRUCTURE
+----------------------------------------
+
+Design templated scaffold folders:
+
+/templates/
+  /kotlin/
+  /swift/
+  /flutter/
+  /react-native/
+
+Each template must contain placeholders like:
+
+{{STATE_MODEL}}
+{{SENSOR_SUBSCRIPTION}}
+{{PERMISSION_REQUEST}}
+{{CONFIG_LOAD}}
+{{CONFIG_SAVE}}
+
+Explain how LAB_SPEC fields populate these placeholders.
+
+----------------------------------------
+SECTION 4 — GENERATION FLOW
+----------------------------------------
+
+Define the generation algorithm:
+
+1. Parse LAB_SPEC
+2. Resolve canonical features
+3. Map to ecosystem equivalents
+4. Populate templates
+5. Inject config schema
+6. Inject permission logic
+7. Inject minimal UI
+8. Emit runnable scaffold
+9. Emit comparison report
+
+Represent as:
+
+ASCII pipeline diagram
+
+----------------------------------------
+SECTION 5 — DRIFT PREVENTION SYSTEM
+----------------------------------------
+
+Design a system that:
+
+- Compares generated implementations
+- Detects feature mismatch
+- Detects missing sensor mapping
+- Detects permission divergence
+- Detects performance regression
+
+----------------------------------------
+SECTION 6 — DIFFICULTY SCALING ENGINE
+----------------------------------------
+
+Design rules for:
+
+difficulty_level 1–5
+
+Explain how:
+
+- Sensor count
+- Async complexity
+- State depth
+- Background behavior
+- UI complexity
+- Config branching
+
+Increase per level.
+
+----------------------------------------
+SECTION 7 — CLI INTERFACE
+----------------------------------------
+
+Design a minimal CLI:
+
+mobile-lab generate LAB_SPEC.json
+mobile-lab compare LAB_ID
+mobile-lab benchmark LAB_ID
+mobile-lab mutate LAB_ID --sensor-add=gyro
+
+----------------------------------------
+SECTION 8 — MUTATION ENGINE
+----------------------------------------
+
+Design how labs can be:
+
+- Mutated
+- Sensor-expanded
+- Config-expanded
+- Stress-tested
+- Performance-tested
+
+----------------------------------------
+SECTION 9 — OUTPUT REQUIREMENTS
+----------------------------------------
+
+Produce:
+
+- JSON schemas
+- Template examples
+- Generation algorithm pseudocode
+- CLI spec
+- Drift detection strategy
+- Scaling logic
+- Folder tree
+
+Avoid overengineering.
+Keep it disciplined.
+Keep it extensible.
+Keep it minimal.
+
+----------------------------------------
+FINAL GOAL
+----------------------------------------
+
+Build the system that enables:
+
+Spec → Multi-Platform Implementation
+
+At scale.
+
+This engine becomes the compounding layer of mobile-systems-lab.

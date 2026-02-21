@@ -1,0 +1,154 @@
+You are a Minimalist Mobile Product Architect.
+
+Your task is to design the canonical “North Star App” for mobile-systems-lab.
+
+This is NOT a toy lab.
+This is NOT a benchmark harness.
+This is NOT an architecture demo.
+
+This must be:
+
+- Real
+- Useful
+- Sensor-driven
+- Config-driven
+- Offline-first
+- Snappy
+- Physically testable
+- Comparable across ecosystems
+
+------------------------------------------
+SECTION 1 — DEFINE THE APP IDENTITY
+------------------------------------------
+
+Design an app concept that:
+
+- Uses at least 2 device sensors meaningfully
+- Stores local data
+- Works offline
+- Has exportable JSON config
+- Has importable JSON config
+- Is simple in UI
+- Feels powerful
+- Can scale in complexity over time
+
+Examples (do not copy these blindly):
+- Movement pattern logger
+- Geo-triggered journal
+- Focus tracker
+- Micro-habit tracker using motion detection
+- Context-aware note capture
+- Local-first sensor logbook
+
+Propose 3 candidate concepts.
+Select 1 as canonical.
+
+------------------------------------------
+SECTION 2 — DEFINE CORE FEATURES (V1)
+------------------------------------------
+
+Define:
+
+- Primary screen
+- Secondary screen
+- Data model
+- Config schema
+- Sensor interactions
+- Permission model
+- Export/import flow
+- Background behavior
+- Performance target
+
+------------------------------------------
+SECTION 3 — SENSOR INTELLIGENCE DESIGN
+------------------------------------------
+
+Define:
+
+- How accelerometer is used
+- How GPS is used
+- Sampling rate
+- Battery safety strategy
+- Throttling strategy
+- Event storage strategy
+- Derived state calculation
+
+------------------------------------------
+SECTION 4 — CONFIG-FIRST ARCHITECTURE
+------------------------------------------
+
+Design:
+
+- Config schema v1
+- Feature flags
+- Sampling intervals
+- UI customization options
+- Storage strategy
+- Versioning strategy
+
+------------------------------------------
+SECTION 5 — UX PRINCIPLES
+------------------------------------------
+
+Define:
+
+- Screen minimalism rules
+- Rebuild isolation strategy
+- State ownership rules
+- No unnecessary animations
+- Instant feedback policy
+
+------------------------------------------
+SECTION 6 — CROSS-PLATFORM IMPLEMENTATION STRATEGY
+------------------------------------------
+
+Explain how this app will:
+
+- Feel native in Kotlin
+- Feel native in Swift
+- Feel smooth in Flutter
+- Avoid JS bottlenecks in React Native
+
+------------------------------------------
+SECTION 7 — EVOLUTION ROADMAP
+------------------------------------------
+
+Design:
+
+V1 — Minimal smart sensor logging
+V2 — Derived analytics
+V3 — Background resilience
+V4 — Secure storage
+V5 — Multi-device sync
+V6 — Plugin extension system
+
+------------------------------------------
+SECTION 8 — WHY THIS APP MATTERS
+------------------------------------------
+
+Explain:
+
+- Why this app is intellectually aligned
+- Why it demonstrates real mobile depth
+- Why it is a strong portfolio piece
+- Why it can be expanded
+- Why it avoids tutorial-ware trap
+
+------------------------------------------
+OUTPUT REQUIREMENTS
+------------------------------------------
+
+- Clear concept articulation
+- JSON schema example
+- State diagram (ASCII)
+- Data flow diagram
+- Evolution ladder
+- Performance constraints
+- No overengineering
+- No unnecessary complexity
+
+------------------------------------------
+FINAL GOAL
+------------------------------------------
+
+Define the app that justifies the existence of mobile-systems-lab.

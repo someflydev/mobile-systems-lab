@@ -1,0 +1,231 @@
+You are a Cross-Platform Mobile Runtime Theorist and Systems Architect.
+
+Your job is to create a UNIFIED MENTAL MODEL and ABSTRACTION LAYER that normalizes:
+
+- Kotlin (Android)
+- Swift (iOS)
+- Flutter (Dart)
+- React Native (TypeScript)
+
+Do NOT generate full labs yet.
+Do NOT generate full codebases yet.
+
+Instead:
+
+Design the shared conceptual runtime layer that will power all future labs.
+
+--------------------------------------
+SECTION 1 — DEFINE THE CANONICAL MOBILE RUNTIME MODEL
+--------------------------------------
+
+Create a universal model describing:
+
+1. App Lifecycle
+   - Launch
+   - Foreground
+   - Background
+   - Suspension
+   - Termination
+
+2. Screen Model
+   - What is a "screen"?
+   - What is navigation?
+   - What is a route?
+   - What is a stack?
+
+3. View Composition
+   - Declarative vs imperative
+   - Widget tree vs View hierarchy
+   - Layout systems
+
+4. State Model
+   - Local state
+   - Shared state
+   - Persistent state
+   - Derived state
+   - Side effects
+
+5. Event Model
+   - User events
+   - System events
+   - Sensor events
+   - Timers
+
+6. Permission Model
+   - Runtime permissions
+   - OS-level permissions
+   - Privacy constraints
+
+7. Sensor Model
+   - Pull-based
+   - Stream-based
+   - Callback-based
+
+8. Storage Model
+   - Key-value
+   - File system
+   - Database
+   - Secure storage
+
+9. Rendering Model
+   - Frame updates
+   - Rebuild triggers
+   - Diffing vs full rebuild
+
+Represent this as:
+
+- ASCII diagrams
+- Layer diagrams
+- A normalized vocabulary glossary
+
+--------------------------------------
+SECTION 2 — CREATE A CROSS-PLATFORM ABSTRACTION TABLE
+--------------------------------------
+
+Generate a comparison matrix:
+
+Columns:
+- Canonical Concept
+- Kotlin Android
+- Swift iOS
+- Flutter
+- React Native
+- Unique Quirks
+- Performance Implications
+
+Rows must include at least:
+- App root
+- Screen
+- Navigation
+- State container
+- Async execution
+- Sensor subscription
+- File storage
+- Permission request
+- Background work
+- Configuration injection
+
+--------------------------------------
+SECTION 3 — DEFINE A LAB SPEC CONTRACT
+--------------------------------------
+
+Create a portable JSON schema called:
+
+LAB_SPEC.json
+
+It must define:
+
+- lab_id
+- title
+- canonical_features_used
+- sensors_used
+- storage_used
+- state_complexity_level
+- expected_runtime_constraints
+- config_schema_version
+- performance_goal
+
+This will be used to generate future labs automatically.
+
+--------------------------------------
+SECTION 4 — CONFIG-FIRST APP BLUEPRINT
+--------------------------------------
+
+Design a minimal "Config-Driven App Blueprint":
+
+The app must:
+- Load config.json at startup
+- Configure enabled sensors
+- Configure UI theme
+- Configure feature flags
+- Export config
+- Import config
+- Version config schema
+
+Provide:
+- Example JSON schema
+- Example default config
+- Migration strategy concept
+
+--------------------------------------
+SECTION 5 — SENSOR CAPABILITY NORMALIZATION
+--------------------------------------
+
+Define a normalized sensor interface model:
+
+Sensor {
+  id
+  permission_required
+  event_frequency
+  battery_cost_level
+  data_shape
+}
+
+Then map:
+
+- Accelerometer
+- GPS
+- Camera
+- Microphone
+- Battery state
+
+Across all four ecosystems.
+
+--------------------------------------
+SECTION 6 — PERFORMANCE CONTRACT
+--------------------------------------
+
+Define a "Snappy UX Contract":
+
+- Max frame budget
+- Rebuild isolation strategy
+- Async isolation strategy
+- Background work limits
+- Logging strategy
+- Crash recovery pattern
+
+--------------------------------------
+SECTION 7 — ARCHITECTURAL DECISION FLOW
+--------------------------------------
+
+Generate a decision tree for choosing:
+
+- Kotlin native
+- Swift native
+- Flutter
+- React Native
+
+Based on:
+- Sensor intensity
+- UI complexity
+- Animation needs
+- Performance needs
+- Team size
+- Release velocity
+
+--------------------------------------
+OUTPUT REQUIREMENTS
+--------------------------------------
+
+- Clear structure
+- Deep but not bloated
+- No code yet (only small illustrative snippets allowed)
+- Tables must be detailed
+- Diagrams must be ASCII
+- Must prepare the foundation for automated lab generation
+- Must prepare the foundation for CLI-driven repo scaffolding
+- Must maintain minimalist philosophy
+
+--------------------------------------
+FINAL GOAL
+--------------------------------------
+
+Produce the canonical foundation that future prompts can reference to generate:
+
+- Progressive labs
+- Runnable examples
+- Sensor experiments
+- Config-driven apps
+- Comparative performance tests
+
+This document should act as the intellectual constitution for mobile-systems-lab.

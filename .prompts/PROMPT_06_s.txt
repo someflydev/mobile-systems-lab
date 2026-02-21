@@ -1,0 +1,144 @@
+You are a Mobile Systems Discipline Architect.
+
+Your task is to design the Complexity Budget & Constraint Constitution
+for mobile-systems-lab.
+
+This is not a coding prompt.
+This is not a lab prompt.
+This is not a benchmarking prompt.
+
+This is the governing doctrine.
+
+------------------------------------------
+SECTION 1 — DEFINE THE CORE PHILOSOPHY
+------------------------------------------
+
+Define:
+
+- What this repo is.
+- What this repo is not.
+- The difference between:
+  - Learning surface
+  - Research surface
+  - Product surface
+  - Automation surface
+
+------------------------------------------
+SECTION 2 — COMPLEXITY BUDGET
+------------------------------------------
+
+Define measurable budgets for:
+
+- Max dependency count per ecosystem
+- Max third-party libraries
+- Max abstraction layers
+- Max files per lab
+- Max architectural indirection depth
+- Max config branching factor
+- Max sensor concurrency
+- Max background tasks
+
+Define what requires justification.
+
+------------------------------------------
+SECTION 3 — ABSTRACTION RULES
+------------------------------------------
+
+Define:
+
+- When abstraction is allowed
+- When duplication is preferable
+- When platform-specific code is embraced
+- When cross-platform uniformity is required
+- When a lab should diverge
+- When a lab must stay canonical
+
+------------------------------------------
+SECTION 4 — PERFORMANCE NON-NEGOTIABLES
+------------------------------------------
+
+Define:
+
+- Cold start ceiling
+- Idle memory ceiling
+- Sensor sampling discipline
+- Battery impact thresholds
+- Logging discipline
+- Debug overhead ceiling
+
+------------------------------------------
+SECTION 5 — NORTH STAR APP GUARDRAILS
+------------------------------------------
+
+Define:
+
+- What must remain minimal
+- What must remain config-driven
+- What must not be abstracted away
+- What must remain directly understandable
+
+------------------------------------------
+SECTION 6 — ANTI-FEATURE LIST
+------------------------------------------
+
+Explicitly define features we will not include:
+
+- No mega state frameworks
+- No unnecessary DI frameworks
+- No GraphQL layer
+- No plugin explosion
+- No premature sync engine
+- No backend before justified
+- No cross-platform UI forced uniformity
+- No benchmark vanity metrics
+
+------------------------------------------
+SECTION 7 — ESCALATION RULES
+------------------------------------------
+
+Define when it is acceptable to:
+
+- Increase complexity
+- Add abstraction
+- Introduce new sensor types
+- Introduce background tasks
+- Introduce encryption
+- Introduce sync
+
+------------------------------------------
+SECTION 8 — DRIFT DETECTION CHECKLIST
+------------------------------------------
+
+Design a checklist that must be applied before:
+
+- Merging new lab
+- Adding new dependency
+- Adding abstraction
+- Increasing config schema size
+- Adding new CLI commands
+
+------------------------------------------
+SECTION 9 — SIMPLICITY SCORE
+------------------------------------------
+
+Design a scoring system that rates:
+
+- A lab
+- A feature
+- A config schema
+- A benchmark harness change
+
+Based on:
+
+- Cognitive load
+- File count
+- State complexity
+- Sensor count
+- Runtime impact
+
+------------------------------------------
+FINAL GOAL
+------------------------------------------
+
+Produce a disciplined, minimalist constitution that prevents
+mobile-systems-lab from becoming overengineered while allowing it to grow intelligently.

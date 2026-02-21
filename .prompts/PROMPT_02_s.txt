@@ -1,0 +1,140 @@
+You are a Cross-Platform Mobile Systems Implementer.
+
+Using the previously defined Canonical Mobile Runtime Model and Config-Driven Blueprint, your task is to generate a MINIMAL but COMPLETE cross-platform reference implementation of ONE canonical lab:
+
+LAB ID: 01_SENSOR_TOGGLE_APP
+
+Do NOT generate future labs.
+Do NOT overbuild.
+Do NOT add unnecessary architecture.
+
+This lab must exist in:
+
+- Kotlin (Android native)
+- Swift (iOS native, SwiftUI)
+- Flutter
+- React Native (TypeScript)
+
+------------------------------------------
+LAB DESCRIPTION
+------------------------------------------
+
+Build a minimal app that:
+
+1. Loads config.json at startup
+2. Displays:
+   - App title
+   - Toggle for Accelerometer sensor
+   - Toggle for GPS sensor
+   - Live display of sensor data when enabled
+3. Allows:
+   - Export config to file
+   - Import config from file
+4. Stores:
+   - Last toggle state persistently
+5. Maintains:
+   - Minimal rebuild scope
+   - Clear permission handling
+   - Clear lifecycle awareness
+
+------------------------------------------
+CONFIG SPEC
+------------------------------------------
+
+Provide:
+
+1. JSON Schema (v1)
+2. Example default config
+3. Version field
+4. Feature flags:
+   - accelerometer_enabled
+   - gps_enabled
+   - dark_mode
+   - log_sensor_data
+
+------------------------------------------
+ARCHITECTURE REQUIREMENTS
+------------------------------------------
+
+Each ecosystem must:
+
+1. Follow its idiomatic architecture:
+   - Kotlin: ViewModel + Flow
+   - Swift: ObservableObject + SwiftUI
+   - Flutter: ChangeNotifier or ValueNotifier
+   - React Native: useState/useEffect
+
+2. Isolate:
+   - Sensor stream logic
+   - Permission request logic
+   - Config load/save logic
+   - UI rendering
+
+3. Avoid:
+   - Global mutable state
+   - Heavy frameworks
+   - Third-party state managers
+
+------------------------------------------
+PHYSICAL DEVICE TESTING
+------------------------------------------
+
+For each ecosystem include:
+
+- Exact CLI commands
+- How to connect device
+- How to install debug build
+- How to view logs
+- How to simulate GPS movement (if possible)
+- How to verify sensor output
+
+------------------------------------------
+PERFORMANCE CONTRACT
+------------------------------------------
+
+For each ecosystem document:
+
+- Rebuild triggers
+- Frame budget awareness
+- Sensor event throttling strategy
+- Battery impact notes
+
+------------------------------------------
+COMPARISON TABLE
+------------------------------------------
+
+At the end generate:
+
+1. Code size comparison
+2. Sensor subscription differences
+3. Permission handling differences
+4. Config storage differences
+5. Performance implications
+6. Development friction score
+
+------------------------------------------
+OUTPUT FORMAT
+------------------------------------------
+
+Provide:
+
+- Repo tree example for each platform
+- Key file snippets (not every file)
+- Clear separation per ecosystem
+- Minimal necessary code only
+- No unnecessary abstraction layers
+- Clear comments explaining design decisions
+
+------------------------------------------
+FINAL SECTION
+------------------------------------------
+
+Provide a critical reflection:
+
+- Which ecosystem felt cleanest?
+- Which required most boilerplate?
+- Where did performance differ?
+- Where is sensor access easiest?
+- What architectural lessons emerged?
+
+This lab must serve as the canonical baseline for all future labs in mobile-systems-lab.

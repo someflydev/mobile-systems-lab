@@ -1,0 +1,173 @@
+You are a Mobile Systems Performance Research Architect.
+
+Your task is to design the CROSS-PLATFORM BENCHMARK HARNESS
+for mobile-systems-lab.
+
+This system must empirically measure and compare:
+
+- Kotlin (Android native)
+- Swift (iOS native)
+- Flutter
+- React Native
+
+Using the same canonical lab implementations.
+
+----------------------------------------
+SECTION 1 — DEFINE WHAT TO MEASURE
+----------------------------------------
+
+Design measurable metrics:
+
+1. Cold start time
+2. Warm start time
+3. Memory footprint at idle
+4. Memory footprint during sensor streaming
+5. CPU usage during:
+   - Idle
+   - Accelerometer streaming
+   - GPS streaming
+6. Frame rendering stability (jank detection)
+7. Sensor event throughput
+8. Battery impact estimation
+9. Background execution reliability
+10. Config load latency
+
+For each metric:
+- Define measurement method
+- Define sampling strategy
+- Define normalization method
+- Define tooling per platform
+
+----------------------------------------
+SECTION 2 — PLATFORM-SPECIFIC TOOLING
+----------------------------------------
+
+For each ecosystem document:
+
+Android:
+- adb shell commands
+- dumpsys meminfo
+- systrace
+- profiler usage
+- battery historian
+
+iOS:
+- Instruments
+- Xcode profiler
+- energy log
+- sysdiagnose
+
+Flutter:
+- flutter devtools
+- performance overlay
+- timeline events
+
+React Native:
+- Hermes profiling
+- Flipper
+- performance monitor
+
+----------------------------------------
+SECTION 3 — UNIFIED BENCHMARK PROTOCOL
+----------------------------------------
+
+Design a reproducible benchmark protocol:
+
+1. Device preparation steps
+2. Clean reboot
+3. Install fresh debug build
+4. Cold start measurement
+5. Sensor activation for fixed duration
+6. Data logging period
+7. Export logs
+8. Standardized result JSON output
+
+Define:
+BENCHMARK_RESULT.json schema
+
+----------------------------------------
+SECTION 4 — LOG NORMALIZATION
+----------------------------------------
+
+Design a normalization layer that converts:
+
+Android logs
+iOS logs
+Flutter logs
+React Native logs
+
+Into:
+
+UNIFIED_METRICS.json
+
+----------------------------------------
+SECTION 5 — VISUALIZATION STRATEGY
+----------------------------------------
+
+Design:
+
+- CLI table output
+- ASCII performance bar charts
+- Comparative summary report
+- Regression detection alert
+
+----------------------------------------
+SECTION 6 — DRIFT & REGRESSION DETECTION
+----------------------------------------
+
+Design rules that detect:
+
+- Performance regression
+- Memory creep
+- Sensor throughput degradation
+- Increased cold start latency
+
+----------------------------------------
+SECTION 7 — BATTERY REALITY CHECK
+----------------------------------------
+
+Design how to estimate battery impact across:
+
+- Continuous accelerometer usage
+- Continuous GPS usage
+- Combined sensor usage
+
+Include:
+- Sampling interval tuning
+- Throttling strategy
+
+----------------------------------------
+SECTION 8 — SCIENTIFIC DISCIPLINE RULES
+----------------------------------------
+
+Define rules:
+
+- Same device class
+- Same OS version
+- Same test duration
+- Same environmental conditions
+- No background apps
+- Fixed sampling window
+
+----------------------------------------
+SECTION 9 — OUTPUT REQUIREMENTS
+----------------------------------------
+
+Produce:
+
+- JSON schemas
+- Benchmark protocol checklist
+- CLI command list per ecosystem
+- Sample result output
+- Sample comparative table
+- ASCII comparison graph
+- Regression detection rules
+- Minimal benchmark runner pseudocode
+
+----------------------------------------
+FINAL GOAL
+----------------------------------------
+
+Turn mobile-systems-lab into a measurable,
+data-driven comparative mobile systems platform
+instead of a conceptual tutorial repository.
