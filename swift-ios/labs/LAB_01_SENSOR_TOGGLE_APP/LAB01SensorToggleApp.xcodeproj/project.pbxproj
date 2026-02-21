@@ -1,0 +1,285 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000000000001 /* LAB01SensorToggleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000110000000000000001 /* LAB01SensorToggleAppApp.swift */; };
+		A10000020000000000000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000120000000000000001 /* ContentView.swift */; };
+		A10000030000000000000001 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000130000000000000001 /* AppViewModel.swift */; };
+		A10000040000000000000001 /* ConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000140000000000000001 /* ConfigStore.swift */; };
+		A10000050000000000000001 /* SensorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000150000000000000001 /* SensorService.swift */; };
+		A10000060000000000000001 /* LabConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000160000000000000001 /* LabConfig.swift */; };
+		A10000070000000000000001 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = A10000170000000000000001 /* config.json */; };
+		A10000080000000000000001 /* config.schema.v1.json in Resources */ = {isa = PBXBuildFile; fileRef = A10000180000000000000001 /* config.schema.v1.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000110000000000000001 /* LAB01SensorToggleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAB01SensorToggleAppApp.swift; sourceTree = "<group>"; };
+		A10000120000000000000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A10000130000000000000001 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		A10000140000000000000001 /* ConfigStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigStore.swift; sourceTree = "<group>"; };
+		A10000150000000000000001 /* SensorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorService.swift; sourceTree = "<group>"; };
+		A10000160000000000000001 /* LabConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabConfig.swift; sourceTree = "<group>"; };
+		A10000170000000000000001 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		A10000180000000000000001 /* config.schema.v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = config.schema.v1.json; sourceTree = "<group>"; };
+		A10000190000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000200000000000000001 /* LAB01SensorToggleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAB01SensorToggleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000210000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000220000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A10000230000000000000001 /* LAB01SensorToggleApp */,
+				A10000240000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000230000000000000001 /* LAB01SensorToggleApp */ = {
+			isa = PBXGroup;
+			children = (
+				A10000110000000000000001 /* LAB01SensorToggleAppApp.swift */,
+				A10000120000000000000001 /* ContentView.swift */,
+				A10000130000000000000001 /* AppViewModel.swift */,
+				A10000140000000000000001 /* ConfigStore.swift */,
+				A10000150000000000000001 /* SensorService.swift */,
+				A10000160000000000000001 /* LabConfig.swift */,
+				A10000190000000000000001 /* Info.plist */,
+				A10000250000000000000001 /* Resources */,
+			);
+			path = LAB01SensorToggleApp;
+			sourceTree = "<group>";
+		};
+		A10000240000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000200000000000000001 /* LAB01SensorToggleApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000250000000000000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A10000170000000000000001 /* config.json */,
+				A10000180000000000000001 /* config.schema.v1.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000260000000000000001 /* LAB01SensorToggleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000340000000000000001 /* Build configuration list for PBXNativeTarget "LAB01SensorToggleApp" */;
+			buildPhases = (
+				A10000270000000000000001 /* Sources */,
+				A10000210000000000000001 /* Frameworks */,
+				A10000280000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LAB01SensorToggleApp;
+			productName = LAB01SensorToggleApp;
+			productReference = A10000200000000000000001 /* LAB01SensorToggleApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A10000290000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					A10000260000000000000001 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = A10000310000000000000001 /* Build configuration list for PBXProject "LAB01SensorToggleApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A10000220000000000000001;
+			productRefGroup = A10000240000000000000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000260000000000000001 /* LAB01SensorToggleApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000280000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000070000000000000001 /* config.json in Resources */,
+				A10000080000000000000001 /* config.schema.v1.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000270000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000001 /* LAB01SensorToggleAppApp.swift in Sources */,
+				A10000020000000000000001 /* ContentView.swift in Sources */,
+				A10000030000000000000001 /* AppViewModel.swift in Sources */,
+				A10000040000000000000001 /* ConfigStore.swift in Sources */,
+				A10000050000000000000001 /* SensorService.swift in Sources */,
+				A10000060000000000000001 /* LabConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A10000320000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000330000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A10000350000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LAB01SensorToggleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilelab.lab01ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A10000360000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LAB01SensorToggleApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilelab.lab01ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000310000000000000001 /* Build configuration list for PBXProject "LAB01SensorToggleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000320000000000000001 /* Debug */,
+				A10000330000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000340000000000000001 /* Build configuration list for PBXNativeTarget "LAB01SensorToggleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A10000350000000000000001 /* Debug */,
+				A10000360000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A10000290000000000000001 /* Project object */;
+}

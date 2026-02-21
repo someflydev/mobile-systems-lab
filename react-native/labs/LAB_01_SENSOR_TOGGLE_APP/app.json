@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "LAB_01_SENSOR_TOGGLE_APP",
+    "slug": "lab-01-sensor-toggle-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mobilelab.lab01rn",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Location is used for LAB_01 GPS toggle demonstration."
+      }
+    },
+    "android": {
+      "package": "com.mobilelab.lab01rn",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    }
+  }
+}

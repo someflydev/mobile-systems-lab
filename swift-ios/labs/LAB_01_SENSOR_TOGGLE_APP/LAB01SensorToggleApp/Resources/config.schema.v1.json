@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/lab01/config.schema.v1.json",
+  "title": "LAB_01 config schema v1",
+  "type": "object",
+  "required": ["version", "app_title", "feature_flags"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "app_title": { "type": "string", "minLength": 1 },
+    "feature_flags": {
+      "type": "object",
+      "required": [
+        "accelerometer_enabled",
+        "gps_enabled",
+        "dark_mode",
+        "log_sensor_data"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accelerometer_enabled": { "type": "boolean" },
+        "gps_enabled": { "type": "boolean" },
+        "dark_mode": { "type": "boolean" },
+        "log_sensor_data": { "type": "boolean" }
+      }
+    }
+  }
+}

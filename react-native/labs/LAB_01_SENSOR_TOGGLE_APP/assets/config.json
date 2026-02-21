@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "app_title": "LAB_01 Sensor Toggle App",
+  "feature_flags": {
+    "accelerometer_enabled": false,
+    "gps_enabled": false,
+    "dark_mode": false,
+    "log_sensor_data": true
+  }
+}
