@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/contracts/config.schema.v1.json",
+  "title": "Config Schema v1",
+  "description": "Cross-platform config contract for config-driven mobile apps. Used by all ecosystem labs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ui",
+    "features",
+    "sensors",
+    "storage",
+    "runtime"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "config.v1"
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["theme", "density"],
+      "properties": {
+        "theme": {
+          "type": "string",
+          "enum": ["system", "light", "dark"]
+        },
+        "density": {
+          "type": "string",
+          "enum": ["compact", "comfortable"]
+        },
+        "show_debug_panel": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["import_export_enabled", "offline_mode_enabled"],
+      "properties": {
+        "import_export_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "offline_mode_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "background_timer_enabled": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "sensors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accelerometer",
+        "gps",
+        "camera",
+        "microphone",
+        "battery_state"
+      ],
+      "properties": {
+        "accelerometer": {
+          "$ref": "#/$defs/stream_sensor"
+        },
+        "gps": {
+          "$ref": "#/$defs/location_sensor"
+        },
+        "camera": {
+          "$ref": "#/$defs/toggle_sensor"
+        },
+        "microphone": {
+          "$ref": "#/$defs/toggle_sensor"
+        },
+        "battery_state": {
+          "$ref": "#/$defs/toggle_sensor"
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "retention_days"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["key_value", "file_system", "database", "secure_storage"]
+        },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_fps", "max_bg_work_minutes_per_hour"],
+      "properties": {
+        "target_fps": {
+          "type": "integer",
+          "enum": [30, 60, 90, 120],
+          "default": 60
+        },
+        "max_bg_work_minutes_per_hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 15,
+          "default": 5
+        },
+        "log_level": {
+          "type": "string",
+          "enum": ["error", "warn", "info", "debug"],
+          "default": "info"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "toggle_sensor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "stream_sensor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "frequency_hz"],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "frequency_hz": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        }
+      }
+    },
+    "location_sensor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "accuracy_mode", "interval_seconds"],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "accuracy_mode": {
+          "type": "string",
+          "enum": ["balanced", "high_accuracy", "low_power"]
+        },
+        "interval_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/contracts/LAB_SPEC.v1.json",
+  "title": "LAB_SPEC v1",
+  "description": "Canonical portable lab contract for automated lab generation across Kotlin, Swift, Flutter, and React Native. Compatibility rule: v2+ must remain backward-compatible with v1 required fields and semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lab_id",
+    "title",
+    "canonical_features_used",
+    "sensors_used",
+    "storage_used",
+    "state_complexity_level",
+    "expected_runtime_constraints",
+    "config_schema_version",
+    "performance_goal"
+  ],
+  "properties": {
+    "lab_id": {
+      "type": "string",
+      "pattern": "^LAB_[0-9]{2}$",
+      "description": "Stable machine id, e.g., LAB_01"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "canonical_features_used": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "lifecycle",
+          "screen_navigation",
+          "view_composition",
+          "local_state",
+          "shared_state",
+          "persistent_state",
+          "derived_state",
+          "side_effects",
+          "permissions",
+          "sensors",
+          "storage",
+          "config_import_export",
+          "background_work",
+          "performance_tuning",
+          "offline_first"
+        ]
+      }
+    },
+    "sensors_used": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "accelerometer",
+          "gyroscope",
+          "gps",
+          "magnetometer",
+          "camera",
+          "microphone",
+          "battery_state",
+          "nfc",
+          "bluetooth"
+        ]
+      }
+    },
+    "storage_used": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "key_value",
+          "file_system",
+          "database",
+          "secure_storage"
+        ]
+      }
+    },
+    "state_complexity_level": {
+      "type": "string",
+      "enum": [
+        "S0_stateless",
+        "S1_local_state",
+        "S2_shared_state",
+        "S3_persistent_state",
+        "S4_streaming_effects"
+      ]
+    },
+    "expected_runtime_constraints": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "cold_start_budget",
+          "frame_budget_16ms",
+          "battery_budget",
+          "background_execution_limits",
+          "network_instability",
+          "permission_denied_path",
+          "process_recreation",
+          "storage_quota"
+        ]
+      }
+    },
+    "config_schema_version": {
+      "type": "string",
+      "pattern": "^config\\.v[0-9]+$",
+      "description": "Config schema contract expected by this lab, e.g., config.v1"
+    },
+    "performance_goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startup_ms_p95_max",
+        "frame_time_ms_p95_max",
+        "memory_mb_peak_max",
+        "battery_drain_percent_10min_max"
+      ],
+      "properties": {
+        "startup_ms_p95_max": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 10000
+        },
+        "frame_time_ms_p95_max": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 33
+        },
+        "memory_mb_peak_max": {
+          "type": "integer",
+          "minimum": 32,
+          "maximum": 2048
+        },
+        "battery_drain_percent_10min_max": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "scaffold_hints": {
+      "type": "object",
+      "description": "Optional CLI generation hints; ignored by strict runtime validators.",
+      "additionalProperties": false,
+      "properties": {
+        "entry_screen": {
+          "type": "string"
+        },
+        "include_test_stubs": {
+          "type": "boolean"
+        },
+        "preferred_state_pattern": {
+          "type": "string",
+          "enum": [
+            "mvvm",
+            "redux",
+            "provider",
+            "hooks",
+            "observable"
+          ]
+        }
+      }
+    }
+  }
+}
