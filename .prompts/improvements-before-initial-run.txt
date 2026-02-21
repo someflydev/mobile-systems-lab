@@ -1,0 +1,30 @@
+---
+Round: 2
+Timestamp: 2026-02-21T21:27:49Z
+Summary: Applied approved SAFE-AUTO and NEEDS-CONFIRMATION fixes.
+Summary: Normalized monorepo assumptions, resolved LAB progression conflict, and added explicit artifact output contracts.
+Changes Applied:
+- .prompts/PROMPT_00_s.txt :: Set monorepo as explicit architecture and renamed root tree to /mobile-systems-lab/ :: removes repository naming/path drift and architecture ambiguity :: PF-004, PF-008
+- .prompts/PROMPT_00_s.txt :: Updated progressive labs to include LAB 00 (Hello World) and LAB 01 Sensor Toggle baseline :: aligns sequencing intent and cross-prompt LAB identity :: PF-001
+- .prompts/PROMPT_00_s.txt :: Added post-baseline gating for advanced extensions :: reduces overengineering risk before first vertical slice :: PF-010
+- .prompts/PROMPT_00_s.txt :: Clarified snippet requirement as illustrative (not full runnable code in this prompt) :: resolves internal contradiction on code/tooling generation timing :: PF-006
+- .prompts/PROMPT_00_s.txt :: Added explicit output file targets under artifacts/foundations :: ensures first run writes concrete artifacts :: PF-003
+- .prompts/PROMPT_01_s.txt :: Renamed schema target to LAB_SPEC.v1.json and added compatibility rule for later extension :: prevents schema ownership conflicts with Prompt 03 :: PF-002
+- .prompts/PROMPT_01_s.txt :: Added explicit output file targets :: improves execution readiness and artifact determinism :: PF-003
+- .prompts/PROMPT_02_s.txt :: Normalized LAB ID to LAB_01_SENSOR_TOGGLE_APP and added sequencing note after LAB 00 :: aligns with updated progression :: PF-001
+- .prompts/PROMPT_02_s.txt :: Added implementation contract requiring full runnable files plus report snippets :: removes snippet-vs-runnable ambiguity :: PF-009
+- .prompts/PROMPT_02_s.txt :: Added explicit ecosystem output directories and report path :: improves artifact determinism :: PF-003
+- .prompts/PROMPT_03_s.txt :: Added constitution prerequisite and monorepo alignment guard :: enforces constraints before generator design :: PF-005
+- .prompts/PROMPT_03_s.txt :: Migrated schema target to LAB_SPEC.v2.json with v1->v2 compatibility/migration note :: resolves schema drift risk :: PF-002
+- .prompts/PROMPT_03_s.txt :: Updated example LAB ID to LAB_02_STATEFUL_COUNTER to align progression :: reduces cross-prompt lab naming mismatch :: PF-001
+- .prompts/PROMPT_03_s.txt :: Renamed CLI prefix from mobile-lab to mobile-systems-lab :: normalizes naming across prompts and repo :: PF-004
+- .prompts/PROMPT_03_s.txt :: Added explicit output file/path targets (contracts/templates/report) :: improves execution readiness :: PF-003
+- .prompts/PROMPT_04_s.txt :: Added constitution prerequisite and runnable-lab assumption for LAB_01_SENSOR_TOGGLE_APP :: hardens dependency ordering for benchmarking :: PF-005, PF-009
+- .prompts/PROMPT_04_s.txt :: Added explicit benchmark schema/report output paths :: improves artifact determinism :: PF-003
+- .prompts/PROMPT_05_s.txt :: Added constitution prerequisite and V5/V6 gating after benchmarked V1 :: controls complexity escalation :: PF-005, PF-010
+- .prompts/PROMPT_05_s.txt :: Added explicit product/schema output paths :: improves execution readiness :: PF-003
+- .prompts/PROMPT_06_s.txt :: Added explicit governance output paths :: ensures doctrine prompt writes concrete artifacts :: PF-003
+Notes / Followups:
+- PF-007 remains: prompt set currently uses only *_s files. If your runner requires paired PROMPT_XX.txt files, create paired task files or confirm runner behavior.
+- Subtle before/after sample: "LAB_SPEC.json" -> "LAB_SPEC.v1.json" in PROMPT_01_s.txt and "LAB_SPEC.v2.json" in PROMPT_03_s.txt to make contract evolution explicit.
+---

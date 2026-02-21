@@ -3,6 +3,10 @@ You are a Mobile Systems Performance Research Architect.
 Your task is to design the CROSS-PLATFORM BENCHMARK HARNESS
 for mobile-systems-lab.
 
+Prerequisite:
+- Load and apply the constraints from PROMPT_06_s.txt before finalizing this design.
+- Assume LAB_01_SENSOR_TOGGLE_APP exists as runnable code in all four ecosystem directories.
+
 This system must empirically measure and compare:
 
 - Kotlin (Android native)
@@ -163,6 +167,12 @@ Produce:
 - ASCII comparison graph
 - Regression detection rules
 - Minimal benchmark runner pseudocode
+
+Write outputs to these files:
+- artifacts/contracts/BENCHMARK_RESULT.schema.json
+- artifacts/contracts/UNIFIED_METRICS.schema.json
+- artifacts/benchmark/benchmark-protocol-checklist.md
+- artifacts/benchmark/PROMPT_04_benchmark-harness-design.md
 
 ----------------------------------------
 FINAL GOAL

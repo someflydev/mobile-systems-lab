@@ -2,9 +2,13 @@ You are a Cross-Platform Lab Automation Architect.
 
 Your task is to design the LAB GENERATION ENGINE for mobile-systems-lab.
 
+Prerequisite:
+- Load and apply the constraints from PROMPT_06_s.txt before finalizing this design.
+- Keep this aligned with the monorepo structure.
+
 This system must transform:
 
-LAB_SPEC.json
+LAB_SPEC.v2.json
 
 into:
 
@@ -38,9 +42,13 @@ Refine and finalize the LAB_SPEC schema to include:
 Provide:
 - Full JSON schema
 - Example LAB_SPEC for:
-  LAB_02_STATEFUL_SENSOR
+  LAB_02_STATEFUL_COUNTER
   LAB_03_BACKGROUND_GPS_LOGGER
   LAB_04_CONFIG_MUTATION_TEST
+
+Compatibility rule:
+- LAB_SPEC.v2.json extends LAB_SPEC.v1.json from PROMPT_01_s.txt.
+- Document backward compatibility and migration notes from v1 to v2.
 
 ----------------------------------------
 SECTION 2 — DEFINE THE MAPPING LAYER
@@ -136,10 +144,10 @@ SECTION 7 — CLI INTERFACE
 
 Design a minimal CLI:
 
-mobile-lab generate LAB_SPEC.json
-mobile-lab compare LAB_ID
-mobile-lab benchmark LAB_ID
-mobile-lab mutate LAB_ID --sensor-add=gyro
+mobile-systems-lab generate LAB_SPEC.v2.json
+mobile-systems-lab compare LAB_ID
+mobile-systems-lab benchmark LAB_ID
+mobile-systems-lab mutate LAB_ID --sensor-add=gyro
 
 ----------------------------------------
 SECTION 8 — MUTATION ENGINE
@@ -166,6 +174,16 @@ Produce:
 - Drift detection strategy
 - Scaling logic
 - Folder tree
+
+Write outputs to these files/paths:
+- artifacts/contracts/LAB_SPEC.v2.json
+- artifacts/contracts/LAB_SPEC.v2.migration-notes.md
+- artifacts/contracts/CANONICAL_MAPPING.json
+- templates/kotlin/
+- templates/swift/
+- templates/flutter/
+- templates/react-native/
+- artifacts/foundations/PROMPT_03_generation-engine.md
 
 Avoid overengineering.
 Keep it disciplined.

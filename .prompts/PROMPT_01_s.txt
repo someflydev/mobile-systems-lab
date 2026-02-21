@@ -111,7 +111,7 @@ SECTION 3 — DEFINE A LAB SPEC CONTRACT
 
 Create a portable JSON schema called:
 
-LAB_SPEC.json
+LAB_SPEC.v1.json
 
 It must define:
 
@@ -126,6 +126,9 @@ It must define:
 - performance_goal
 
 This will be used to generate future labs automatically.
+Compatibility rule:
+- This prompt defines the canonical v1 base contract.
+- Later prompts may extend it as v2+ only with explicit backward-compatibility notes.
 
 --------------------------------------
 SECTION 4 — CONFIG-FIRST APP BLUEPRINT
@@ -215,6 +218,11 @@ OUTPUT REQUIREMENTS
 - Must prepare the foundation for automated lab generation
 - Must prepare the foundation for CLI-driven repo scaffolding
 - Must maintain minimalist philosophy
+
+Write outputs to these files:
+- artifacts/contracts/LAB_SPEC.v1.json
+- artifacts/contracts/config.schema.v1.json
+- artifacts/foundations/PROMPT_01_runtime-model.md
 
 --------------------------------------
 FINAL GOAL

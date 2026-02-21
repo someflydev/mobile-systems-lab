@@ -2,6 +2,9 @@ You are a Minimalist Mobile Product Architect.
 
 Your task is to design the canonical “North Star App” for mobile-systems-lab.
 
+Prerequisite:
+- Load and apply the constraints from PROMPT_06_s.txt before finalizing this design.
+
 This is NOT a toy lab.
 This is NOT a benchmark harness.
 This is NOT an architecture demo.
@@ -122,6 +125,9 @@ V4 — Secure storage
 V5 — Multi-device sync
 V6 — Plugin extension system
 
+Gating rule:
+- V5 and V6 are deferred until V1 is runnable in all four ecosystems and benchmarked with the PROMPT_04 protocol.
+
 ------------------------------------------
 SECTION 8 — WHY THIS APP MATTERS
 ------------------------------------------
@@ -146,6 +152,12 @@ OUTPUT REQUIREMENTS
 - Performance constraints
 - No overengineering
 - No unnecessary complexity
+
+Write outputs to these files:
+- artifacts/product/north-star-app-spec.md
+- artifacts/contracts/north-star-config.schema.v1.json
+- artifacts/product/north-star-state-diagram.txt
+- artifacts/product/north-star-data-flow.txt
 
 ------------------------------------------
 FINAL GOAL

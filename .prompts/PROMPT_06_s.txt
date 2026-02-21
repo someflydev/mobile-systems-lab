@@ -136,6 +136,11 @@ Based on:
 - Sensor count
 - Runtime impact
 
+Write outputs to these files:
+- artifacts/governance/complexity-constitution.md
+- artifacts/governance/drift-detection-checklist.md
+- artifacts/governance/simplicity-score-rubric.md
+
 ------------------------------------------
 FINAL GOAL
 ------------------------------------------

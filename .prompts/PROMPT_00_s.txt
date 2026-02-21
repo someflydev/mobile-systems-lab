@@ -135,14 +135,11 @@ Include:
 SECTION 3 — SYSTEM DESIGN FOR THE PLATFORM
 -----------------------------------
 
-Design this entire learning platform as:
-
-- A multi-repo factory OR
-- A monorepo with subdirectories per language
+Design this entire learning platform as a monorepo with subdirectories per language.
 
 Include:
 
-/mobile-lab/
+/mobile-systems-lab/
   /mindset/
   /kotlin-android/
   /swift-ios/
@@ -166,13 +163,14 @@ SECTION 4 — PROGRESSIVE LAB STRUCTURE
 
 Each ecosystem must follow identical progressive labs:
 
-LAB 01 — Hello World Minimal Screen
+LAB 00 — Hello World Minimal Screen
+LAB 01 — Sensor Toggle App (config load + accelerometer + GPS + import/export)
 LAB 02 — Stateful Counter
 LAB 03 — Form Input + Validation
 LAB 04 — Persistent Storage (local file / preferences)
 LAB 05 — JSON Config-driven UI toggle
-LAB 06 — Accelerometer sensor
-LAB 07 — GPS sensor
+LAB 06 — Accelerometer stream discipline
+LAB 07 — GPS stream discipline
 LAB 08 — Camera preview
 LAB 09 — Background timer
 LAB 10 — Export config to JSON file
@@ -308,6 +306,10 @@ Propose next directions:
 - Config-driven UI engine
 - Sensor-triggered automation
 
+Do not implement these extensions yet. They are post-baseline only:
+- Allowed only after LAB 01 is runnable in all four ecosystems
+- Allowed only after benchmark protocol is defined and recorded once
+
 -----------------------------------
 SECTION 11 — ARTIFACT OUTPUT REQUIREMENTS
 -----------------------------------
@@ -323,6 +325,12 @@ Your output must include:
 - Comparative tables
 - Clear progressive milestones
 
+Write outputs to these files:
+- artifacts/foundations/PROMPT_00_system_blueprint.md
+- artifacts/foundations/lab-roadmap.md
+- artifacts/foundations/repo-tree.monorepo.txt
+- artifacts/foundations/device-testing-checklist.md
+
 -----------------------------------
 OUTPUT STYLE REQUIREMENTS
 -----------------------------------
@@ -334,7 +342,7 @@ OUTPUT STYLE REQUIREMENTS
 - Artifact-first
 - Avoid overengineering
 - Designed for someone who prefers Vim + CLI
-- Must include runnable example snippets per ecosystem
+- Must include only small illustrative snippets per ecosystem (not full runnable implementations in this prompt)
 - Must include testing commands
 
 -----------------------------------

@@ -2,11 +2,14 @@ You are a Cross-Platform Mobile Systems Implementer.
 
 Using the previously defined Canonical Mobile Runtime Model and Config-Driven Blueprint, your task is to generate a MINIMAL but COMPLETE cross-platform reference implementation of ONE canonical lab:
 
-LAB ID: 01_SENSOR_TOGGLE_APP
+LAB ID: LAB_01_SENSOR_TOGGLE_APP
 
 Do NOT generate future labs.
 Do NOT overbuild.
 Do NOT add unnecessary architecture.
+
+Sequence note:
+- This lab comes after LAB 00 (Hello World Minimal Screen).
 
 This lab must exist in:
 
@@ -119,11 +122,22 @@ OUTPUT FORMAT
 Provide:
 
 - Repo tree example for each platform
-- Key file snippets (not every file)
+- Key file snippets (not every file) in the report
 - Clear separation per ecosystem
 - Minimal necessary code only
 - No unnecessary abstraction layers
 - Clear comments explaining design decisions
+
+Implementation contract:
+- Generate full runnable project files for each ecosystem in the monorepo.
+- The prompt response may show snippets, but the repository must contain complete runnable files.
+
+Write outputs to these locations:
+- kotlin-android/labs/LAB_01_SENSOR_TOGGLE_APP/
+- swift-ios/labs/LAB_01_SENSOR_TOGGLE_APP/
+- flutter/labs/LAB_01_SENSOR_TOGGLE_APP/
+- react-native/labs/LAB_01_SENSOR_TOGGLE_APP/
+- artifacts/reports/PROMPT_02_lab01-comparison.md
 
 ------------------------------------------
 FINAL SECTION
