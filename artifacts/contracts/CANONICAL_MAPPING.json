@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/contracts/CANONICAL_MAPPING.json",
+  "schema_version": "canonical_mapping.v1",
+  "description": "Canonical concept to ecosystem mapping used by the lab generation engine.",
+  "concept_mappings": [
+    {
+      "canonical_concept": "app_root",
+      "kotlin_android": "MainActivity + Application init",
+      "swift_ios": "@main App + Scene",
+      "flutter": "main() + runApp()",
+      "react_native": "App.tsx entry + native host",
+      "unique_quirks": "React Native includes JS runtime warmup; iOS signing affects run path.",
+      "performance_implications": "Keep startup path minimal and defer non-critical work."
+    },
+    {
+      "canonical_concept": "screen",
+      "kotlin_android": "Compose screen composable",
+      "swift_ios": "SwiftUI View",
+      "flutter": "Widget screen",
+      "react_native": "Function component",
+      "unique_quirks": "Lifecycle hooks differ across frameworks.",
+      "performance_implications": "Avoid screen-wide state invalidation."
+    },
+    {
+      "canonical_concept": "navigation",
+      "kotlin_android": "Jetpack Navigation/Activity stack",
+      "swift_ios": "NavigationStack",
+      "flutter": "Navigator/Router",
+      "react_native": "React Navigation/native stack",
+      "unique_quirks": "Back behavior differs by platform conventions.",
+      "performance_implications": "Recreating screens can increase startup and memory churn."
+    },
+    {
+      "canonical_concept": "state_container",
+      "kotlin_android": "ViewModel + StateFlow",
+      "swift_ios": "ObservableObject + @Published",
+      "flutter": "ChangeNotifier/ValueNotifier",
+      "react_native": "useState/useReducer",
+      "unique_quirks": "Ownership and lifecycle lifetimes differ.",
+      "performance_implications": "Choose smallest reactive scope to reduce redraw/recompose load."
+    },
+    {
+      "canonical_concept": "async_execution",
+      "kotlin_android": "Coroutines",
+      "swift_ios": "async/await + Task",
+      "flutter": "Future/Stream",
+      "react_native": "JS event loop + async/await",
+      "unique_quirks": "React Native JS thread contention is common under high event rates.",
+      "performance_implications": "Throttle stream events and keep heavy work off UI-critical loop."
+    },
+    {
+      "canonical_concept": "sensor_subscription",
+      "kotlin_android": "SensorManager/LocationManager callbacks wrapped as Flow",
+      "swift_ios": "CoreMotion/CoreLocation delegates",
+      "flutter": "Plugin streams",
+      "react_native": "Native/Expo sensor listeners",
+      "unique_quirks": "Permission and background rules vary by platform.",
+      "performance_implications": "Unthrottled sensor updates degrade frame pacing and battery."
+    },
+    {
+      "canonical_concept": "file_storage",
+      "kotlin_android": "app-private files + SAF picker",
+      "swift_ios": "Documents dir + file importer/exporter",
+      "flutter": "path_provider + dart:io",
+      "react_native": "documentDirectory + file APIs",
+      "unique_quirks": "External file access policy differs by OS.",
+      "performance_implications": "Atomic writes reduce corruption risk on interruptions."
+    },
+    {
+      "canonical_concept": "permission_request",
+      "kotlin_android": "runtime permission contracts",
+      "swift_ios": "usage string + runtime request",
+      "flutter": "plugin permission wrapper",
+      "react_native": "runtime permission API/plugin",
+      "unique_quirks": "iOS usage descriptions are mandatory at build time.",
+      "performance_implications": "Repeated prompts degrade UX and engagement."
+    },
+    {
+      "canonical_concept": "background_work",
+      "kotlin_android": "WorkManager/foreground service",
+      "swift_ios": "BGTaskScheduler/background modes",
+      "flutter": "platform channel to native scheduler",
+      "react_native": "headless JS/native background task",
+      "unique_quirks": "OS scheduling policies differ and are stricter on iOS.",
+      "performance_implications": "Unbounded tasks increase battery drain and throttling risk."
+    },
+    {
+      "canonical_concept": "configuration_injection",
+      "kotlin_android": "asset JSON + repository init",
+      "swift_ios": "bundle JSON + decode at startup",
+      "flutter": "asset bundle JSON + service",
+      "react_native": "bundled JSON + config module",
+      "unique_quirks": "Runtime bundle path differences across ecosystems.",
+      "performance_implications": "Do parse/validation early but keep work bounded."
+    }
+  ],
+  "state_model_type_mapping": {
+    "local_mutable": {
+      "kotlin_android": "ViewModel mutable state",
+      "swift_ios": "ObservableObject with local @Published",
+      "flutter": "ValueNotifier",
+      "react_native": "useState"
+    },
+    "observable_mvvm": {
+      "kotlin_android": "ViewModel + StateFlow",
+      "swift_ios": "ObservableObject + @Published",
+      "flutter": "ChangeNotifier",
+      "react_native": "useReducer + custom hooks"
+    },
+    "unidirectional_store": {
+      "kotlin_android": "reducer + StateFlow",
+      "swift_ios": "action reducer in ObservableObject",
+      "flutter": "notifier + reducer methods",
+      "react_native": "useReducer"
+    },
+    "provider_notifier": {
+      "kotlin_android": "state holder + injected repository",
+      "swift_ios": "EnvironmentObject",
+      "flutter": "ChangeNotifier",
+      "react_native": "context + hooks"
+    },
+    "hook_state_effect": {
+      "kotlin_android": "compose remember + side-effects",
+      "swift_ios": "@State + task modifiers",
+      "flutter": "StatefulWidget + setState",
+      "react_native": "useState/useEffect"
+    }
+  },
+  "sensor_subscription_mapping": {
+    "accelerometer": {
+      "kotlin_android": "SensorManager TYPE_ACCELEROMETER",
+      "swift_ios": "CMMotionManager accelerometer updates",
+      "flutter": "sensors_plus accelerometer stream",
+      "react_native": "expo-sensors Accelerometer"
+    },
+    "gps": {
+      "kotlin_android": "LocationManager/FusedLocationProvider",
+      "swift_ios": "CLLocationManager",
+      "flutter": "geolocator position stream",
+      "react_native": "expo-location watchPositionAsync"
+    },
+    "gyroscope": {
+      "kotlin_android": "SensorManager TYPE_GYROSCOPE",
+      "swift_ios": "CMMotionManager gyro updates",
+      "flutter": "sensors_plus gyroscope stream",
+      "react_native": "expo-sensors Gyroscope"
+    },
+    "camera": {
+      "kotlin_android": "CameraX preview",
+      "swift_ios": "AVCaptureSession",
+      "flutter": "camera plugin",
+      "react_native": "camera package/native module"
+    },
+    "microphone": {
+      "kotlin_android": "AudioRecord",
+      "swift_ios": "AVAudioEngine",
+      "flutter": "audio plugin",
+      "react_native": "audio module"
+    },
+    "battery_state": {
+      "kotlin_android": "BatteryManager",
+      "swift_ios": "UIDevice battery state",
+      "flutter": "battery plugin",
+      "react_native": "native battery module"
+    }
+  },
+  "permission_mapping": {
+    "location_when_in_use": {
+      "kotlin_android": "ACCESS_FINE_LOCATION runtime request",
+      "swift_ios": "NSLocationWhenInUseUsageDescription + requestWhenInUseAuthorization",
+      "flutter": "geolocator requestPermission",
+      "react_native": "expo-location requestForegroundPermissionsAsync"
+    },
+    "location_always": {
+      "kotlin_android": "ACCESS_BACKGROUND_LOCATION",
+      "swift_ios": "requestAlwaysAuthorization + plist keys",
+      "flutter": "platform-specific background location permission",
+      "react_native": "native config with background location"
+    },
+    "camera": {
+      "kotlin_android": "CAMERA runtime permission",
+      "swift_ios": "NSCameraUsageDescription",
+      "flutter": "camera permission via plugin",
+      "react_native": "camera permission API/plugin"
+    },
+    "microphone": {
+      "kotlin_android": "RECORD_AUDIO runtime permission",
+      "swift_ios": "NSMicrophoneUsageDescription",
+      "flutter": "microphone permission via plugin",
+      "react_native": "microphone permission API/plugin"
+    },
+    "motion": {
+      "kotlin_android": "ACTIVITY_RECOGNITION where needed",
+      "swift_ios": "CoreMotion authorization",
+      "flutter": "plugin-specific motion permission",
+      "react_native": "platform module for motion access"
+    },
+    "file_read_write": {
+      "kotlin_android": "Storage Access Framework picker",
+      "swift_ios": "fileImporter/fileExporter",
+      "flutter": "file picker + app docs access",
+      "react_native": "document picker + FileSystem"
+    },
+    "none": {
+      "kotlin_android": "no runtime request",
+      "swift_ios": "no runtime request",
+      "flutter": "no runtime request",
+      "react_native": "no runtime request"
+    }
+  },
+  "template_placeholders": {
+    "{{STATE_MODEL}}": {
+      "source": "state_model_type",
+      "resolver": "state_model_type_mapping"
+    },
+    "{{SENSOR_SUBSCRIPTION}}": {
+      "source": "sensors_used",
+      "resolver": "sensor_subscription_mapping"
+    },
+    "{{PERMISSION_REQUEST}}": {
+      "source": "expected_permissions",
+      "resolver": "permission_mapping"
+    },
+    "{{CONFIG_LOAD}}": {
+      "source": "config_schema_version",
+      "resolver": "config_loader_snippet"
+    },
+    "{{CONFIG_SAVE}}": {
+      "source": "storage_used",
+      "resolver": "config_save_snippet"
+    }
+  },
+  "config_loader_snippet": {
+    "kotlin_android": "read config.json from assets or app files, parse, validate version",
+    "swift_ios": "decode bundled config.json with fallback",
+    "flutter": "load asset config then merge persisted toggles",
+    "react_native": "read bundled config and override from local storage"
+  },
+  "config_save_snippet": {
+    "kotlin_android": "persist toggles to SharedPreferences and write config to file",
+    "swift_ios": "persist toggles to UserDefaults and write config to documents",
+    "flutter": "persist toggles in SharedPreferences and write config file",
+    "react_native": "persist toggles in AsyncStorage and write config file"
+  }
+}

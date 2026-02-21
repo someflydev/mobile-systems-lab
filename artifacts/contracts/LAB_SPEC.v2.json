@@ -1,0 +1,579 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/contracts/LAB_SPEC.v2.json",
+  "title": "LAB_SPEC v2",
+  "description": "Canonical lab contract for automated multi-platform scaffold generation. v2 extends v1 and keeps all v1 fields for compatibility.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lab_id",
+    "title",
+    "difficulty_level",
+    "canonical_features_used",
+    "sensors_used",
+    "storage_used",
+    "state_complexity_level",
+    "state_model_type",
+    "async_complexity",
+    "expected_runtime_constraints",
+    "config_schema_version",
+    "ui_components_required",
+    "background_processing_required",
+    "performance_goal",
+    "performance_budget",
+    "expected_permissions",
+    "device_constraints"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "lab_spec.v2"
+    },
+    "lab_id": {
+      "type": "string",
+      "pattern": "^LAB_[0-9]{2}(_[A-Z0-9_]+)?$",
+      "description": "Supports v1 IDs (LAB_01) and extended IDs (LAB_02_STATEFUL_COUNTER)."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "difficulty_level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "canonical_features_used": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "lifecycle",
+          "screen_navigation",
+          "view_composition",
+          "local_state",
+          "shared_state",
+          "persistent_state",
+          "derived_state",
+          "side_effects",
+          "permissions",
+          "sensors",
+          "storage",
+          "config_import_export",
+          "background_work",
+          "performance_tuning",
+          "offline_first",
+          "config_mutation_testing"
+        ]
+      }
+    },
+    "sensors_used": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "accelerometer",
+          "gyroscope",
+          "gps",
+          "magnetometer",
+          "camera",
+          "microphone",
+          "battery_state",
+          "nfc",
+          "bluetooth"
+        ]
+      }
+    },
+    "storage_used": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "key_value",
+          "file_system",
+          "database",
+          "secure_storage"
+        ]
+      }
+    },
+    "state_complexity_level": {
+      "type": "string",
+      "enum": [
+        "S0_stateless",
+        "S1_local_state",
+        "S2_shared_state",
+        "S3_persistent_state",
+        "S4_streaming_effects"
+      ],
+      "description": "v1 retained field for compatibility."
+    },
+    "state_model_type": {
+      "type": "string",
+      "enum": [
+        "local_mutable",
+        "observable_mvvm",
+        "unidirectional_store",
+        "provider_notifier",
+        "hook_state_effect"
+      ]
+    },
+    "async_complexity": {
+      "type": "string",
+      "enum": [
+        "A0_sync_only",
+        "A1_single_async_call",
+        "A2_stream_subscription",
+        "A3_multi_stream_orchestrated",
+        "A4_background_orchestrated"
+      ]
+    },
+    "expected_runtime_constraints": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "cold_start_budget",
+          "frame_budget_16ms",
+          "battery_budget",
+          "background_execution_limits",
+          "network_instability",
+          "permission_denied_path",
+          "process_recreation",
+          "storage_quota"
+        ]
+      },
+      "description": "v1 retained field for compatibility."
+    },
+    "config_schema_version": {
+      "type": "string",
+      "pattern": "^config\\.v[0-9]+$"
+    },
+    "ui_components_required": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "title_text",
+          "status_text",
+          "toggle_switch",
+          "primary_button",
+          "secondary_button",
+          "numeric_display",
+          "text_input",
+          "list_view",
+          "map_preview",
+          "camera_preview"
+        ]
+      }
+    },
+    "background_processing_required": {
+      "type": "boolean"
+    },
+    "performance_goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startup_ms_p95_max",
+        "frame_time_ms_p95_max",
+        "memory_mb_peak_max",
+        "battery_drain_percent_10min_max"
+      ],
+      "properties": {
+        "startup_ms_p95_max": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 10000
+        },
+        "frame_time_ms_p95_max": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 33
+        },
+        "memory_mb_peak_max": {
+          "type": "integer",
+          "minimum": 32,
+          "maximum": 2048
+        },
+        "battery_drain_percent_10min_max": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "description": "v1 retained field for compatibility."
+    },
+    "performance_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_dependencies_per_platform",
+        "max_third_party_libraries",
+        "max_files_generated",
+        "max_sensor_concurrency",
+        "max_background_tasks",
+        "max_config_branches"
+      ],
+      "properties": {
+        "max_dependencies_per_platform": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "max_third_party_libraries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "max_files_generated": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 80
+        },
+        "max_sensor_concurrency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "max_background_tasks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "max_config_branches": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      }
+    },
+    "expected_permissions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "location_when_in_use",
+          "location_always",
+          "motion",
+          "camera",
+          "microphone",
+          "bluetooth",
+          "nfc",
+          "notifications",
+          "file_read_write"
+        ]
+      }
+    },
+    "device_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "physical_device_required",
+        "android_min_api",
+        "ios_min_version",
+        "network_required",
+        "battery_sensitive"
+      ],
+      "properties": {
+        "physical_device_required": {
+          "type": "boolean"
+        },
+        "android_min_api": {
+          "type": "integer",
+          "minimum": 21,
+          "maximum": 35
+        },
+        "ios_min_version": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "network_required": {
+          "type": "boolean"
+        },
+        "battery_sensitive": {
+          "type": "boolean"
+        },
+        "emulator_supported": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "scaffold_hints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry_screen": {
+          "type": "string"
+        },
+        "include_test_stubs": {
+          "type": "boolean"
+        },
+        "preferred_state_pattern": {
+          "type": "string",
+          "enum": [
+            "mvvm",
+            "redux",
+            "provider",
+            "hooks",
+            "observable"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "background_processing_required": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "canonical_features_used": {
+            "contains": {
+              "const": "background_work"
+            }
+          },
+          "async_complexity": {
+            "enum": [
+              "A3_multi_stream_orchestrated",
+              "A4_background_orchestrated"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sensors_used": {
+            "contains": {
+              "const": "gps"
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected_permissions": {
+            "contains": {
+              "const": "location_when_in_use"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "schema_version": "lab_spec.v2",
+      "lab_id": "LAB_02_STATEFUL_COUNTER",
+      "title": "Stateful Counter",
+      "difficulty_level": 1,
+      "canonical_features_used": [
+        "local_state",
+        "view_composition",
+        "persistent_state"
+      ],
+      "sensors_used": [
+        "none"
+      ],
+      "storage_used": [
+        "key_value"
+      ],
+      "state_complexity_level": "S1_local_state",
+      "state_model_type": "local_mutable",
+      "async_complexity": "A1_single_async_call",
+      "expected_runtime_constraints": [
+        "cold_start_budget",
+        "frame_budget_16ms"
+      ],
+      "config_schema_version": "config.v1",
+      "ui_components_required": [
+        "title_text",
+        "numeric_display",
+        "primary_button",
+        "secondary_button"
+      ],
+      "background_processing_required": false,
+      "performance_goal": {
+        "startup_ms_p95_max": 1200,
+        "frame_time_ms_p95_max": 16.67,
+        "memory_mb_peak_max": 180,
+        "battery_drain_percent_10min_max": 1.0
+      },
+      "performance_budget": {
+        "max_dependencies_per_platform": 8,
+        "max_third_party_libraries": 2,
+        "max_files_generated": 18,
+        "max_sensor_concurrency": 0,
+        "max_background_tasks": 0,
+        "max_config_branches": 2
+      },
+      "expected_permissions": [
+        "none"
+      ],
+      "device_constraints": {
+        "physical_device_required": false,
+        "android_min_api": 26,
+        "ios_min_version": "16.0",
+        "network_required": false,
+        "battery_sensitive": false,
+        "emulator_supported": true
+      }
+    },
+    {
+      "schema_version": "lab_spec.v2",
+      "lab_id": "LAB_03_BACKGROUND_GPS_LOGGER",
+      "title": "Background GPS Logger",
+      "difficulty_level": 4,
+      "canonical_features_used": [
+        "lifecycle",
+        "sensors",
+        "permissions",
+        "storage",
+        "background_work",
+        "performance_tuning"
+      ],
+      "sensors_used": [
+        "gps",
+        "battery_state"
+      ],
+      "storage_used": [
+        "file_system",
+        "database"
+      ],
+      "state_complexity_level": "S4_streaming_effects",
+      "state_model_type": "unidirectional_store",
+      "async_complexity": "A4_background_orchestrated",
+      "expected_runtime_constraints": [
+        "battery_budget",
+        "background_execution_limits",
+        "permission_denied_path",
+        "process_recreation"
+      ],
+      "config_schema_version": "config.v1",
+      "ui_components_required": [
+        "title_text",
+        "status_text",
+        "toggle_switch",
+        "list_view"
+      ],
+      "background_processing_required": true,
+      "performance_goal": {
+        "startup_ms_p95_max": 1700,
+        "frame_time_ms_p95_max": 16.67,
+        "memory_mb_peak_max": 260,
+        "battery_drain_percent_10min_max": 4.0
+      },
+      "performance_budget": {
+        "max_dependencies_per_platform": 12,
+        "max_third_party_libraries": 3,
+        "max_files_generated": 34,
+        "max_sensor_concurrency": 2,
+        "max_background_tasks": 1,
+        "max_config_branches": 3
+      },
+      "expected_permissions": [
+        "location_when_in_use",
+        "location_always",
+        "file_read_write"
+      ],
+      "device_constraints": {
+        "physical_device_required": true,
+        "android_min_api": 29,
+        "ios_min_version": "16.0",
+        "network_required": false,
+        "battery_sensitive": true,
+        "emulator_supported": false
+      }
+    },
+    {
+      "schema_version": "lab_spec.v2",
+      "lab_id": "LAB_04_CONFIG_MUTATION_TEST",
+      "title": "Config Mutation Test",
+      "difficulty_level": 3,
+      "canonical_features_used": [
+        "config_import_export",
+        "storage",
+        "config_mutation_testing",
+        "derived_state"
+      ],
+      "sensors_used": [
+        "none"
+      ],
+      "storage_used": [
+        "file_system",
+        "key_value"
+      ],
+      "state_complexity_level": "S3_persistent_state",
+      "state_model_type": "provider_notifier",
+      "async_complexity": "A2_stream_subscription",
+      "expected_runtime_constraints": [
+        "storage_quota",
+        "process_recreation"
+      ],
+      "config_schema_version": "config.v1",
+      "ui_components_required": [
+        "title_text",
+        "status_text",
+        "primary_button",
+        "secondary_button",
+        "text_input",
+        "list_view"
+      ],
+      "background_processing_required": false,
+      "performance_goal": {
+        "startup_ms_p95_max": 1400,
+        "frame_time_ms_p95_max": 16.67,
+        "memory_mb_peak_max": 220,
+        "battery_drain_percent_10min_max": 1.5
+      },
+      "performance_budget": {
+        "max_dependencies_per_platform": 10,
+        "max_third_party_libraries": 2,
+        "max_files_generated": 26,
+        "max_sensor_concurrency": 0,
+        "max_background_tasks": 0,
+        "max_config_branches": 5
+      },
+      "expected_permissions": [
+        "file_read_write"
+      ],
+      "device_constraints": {
+        "physical_device_required": false,
+        "android_min_api": 26,
+        "ios_min_version": "16.0",
+        "network_required": false,
+        "battery_sensitive": false,
+        "emulator_supported": true
+      }
+    }
+  ]
+}
