@@ -1,0 +1,39 @@
+NORTH STAR APP - DATA FLOW (V1)
+
+         +-------------------+
+         |   config.json     |
+         +---------+---------+
+                   |
+                   v
+         +-------------------+
+         | Config Validator  |
+         +---------+---------+
+                   |
+                   v
++------------------+------------------+
+| Runtime State Store (Session, UI)   |
++---------+------------------+--------+
+          |                  |
+          |                  v
+          |        +------------------+
+          |        | Derived Metrics  |
+          |        | focus_stability  |
+          |        +------------------+
+          |
+          +--> Sensor Adapter Layer
+                 |            |
+                 v            v
+          Accelerometer      GPS
+                 |            |
+                 +------ + ---+
+                        v
+                 Aggregation Window
+                        |
+                        v
+                Session Persistence
+                        |
+                        v
+                 Export JSON (data)
+
+Config Import Flow:
+File Picker -> Parse -> Validate schema_version -> Apply -> Persist -> UI refresh

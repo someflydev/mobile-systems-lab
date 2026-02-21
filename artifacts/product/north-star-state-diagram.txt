@@ -1,0 +1,27 @@
+NORTH STAR APP - STATE DIAGRAM (V1)
+
+[App Launch]
+    |
+    v
+[Load Config] --invalid--> [Fallback Config + Warning]
+    | valid
+    v
+[Idle Ready]
+    | Start Session
+    v
+[Session Active]
+    | accel/gps events
+    v
+[Derived Metrics Updating]
+    | Stop Session
+    v
+[Session Persisted]
+    |
+    +--> [Idle Ready]
+
+Lifecycle branch:
+[Session Active] --App Background--> [Session Interrupted]
+[Session Interrupted] --App Foreground--> [Session Active]
+
+Permission branch:
+[Session Active + GPS ON] --permission denied--> [Session Active (GPS Reduced Mode)]

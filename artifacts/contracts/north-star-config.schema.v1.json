@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mobile-systems-lab.local/contracts/north-star-config.schema.v1.json",
+  "title": "North Star Config Schema v1",
+  "description": "Config contract for Motion-Tagged Focus Sessions north-star app.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "feature_flags",
+    "sampling",
+    "ui",
+    "storage",
+    "runtime"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "north_star_config.v1"
+    },
+    "feature_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accelerometer_enabled",
+        "gps_enabled",
+        "dark_mode",
+        "log_sensor_data",
+        "show_focus_stability_index"
+      ],
+      "properties": {
+        "accelerometer_enabled": { "type": "boolean" },
+        "gps_enabled": { "type": "boolean" },
+        "dark_mode": { "type": "boolean" },
+        "log_sensor_data": { "type": "boolean" },
+        "show_focus_stability_index": { "type": "boolean" }
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accelerometer_hz",
+        "gps_interval_sec",
+        "ui_update_interval_ms"
+      ],
+      "properties": {
+        "accelerometer_hz": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "default": 5
+        },
+        "gps_interval_sec": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "default": 5
+        },
+        "ui_update_interval_ms": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 2000,
+          "default": 500
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["theme", "compact_mode"],
+      "properties": {
+        "theme": {
+          "type": "string",
+          "enum": ["system", "light", "dark"],
+          "default": "system"
+        },
+        "compact_mode": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["session_retention_days", "max_sessions"],
+      "properties": {
+        "session_retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3650,
+          "default": 180
+        },
+        "max_sessions": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 100000,
+          "default": 5000
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "low_battery_throttle_enabled",
+        "low_battery_accelerometer_hz",
+        "gps_pause_on_low_battery"
+      ],
+      "properties": {
+        "low_battery_throttle_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "low_battery_accelerometer_hz": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 2
+        },
+        "gps_pause_on_low_battery": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}
