@@ -28,8 +28,8 @@
 3. `PROMPT_10.txt` - Benchmark real parsers + regression gate.
 - Why third: highest leverage improvement from Post-Flight report.
 
-4. `PROMPT_11.txt` - Generator quality upgrades (runnable-lite + placeholder validation).
-- Why fourth: improves generated scaffold utility after quality gates are in place.
+4. `PROMPT_11.txt` - Generator quality upgrades (runnable-lite + placeholder validation in scratch output).
+- Why fourth: improves generated scaffold utility after quality gates are in place, without risking canonical LAB_01 overwrite.
 
 5. `PROMPT_12.txt` - Release hygiene + naming consistency + governance enforcement.
 - Why fifth: final hardening and consistency pass once core behavior is stable.

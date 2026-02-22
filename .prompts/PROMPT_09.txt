@@ -31,14 +31,14 @@ Required implementation details
 2. Add prompt-manifest consistency checks:
    - listed prompt files exist
    - Stage-2 prompt order is monotonic and explicit
-3. CI must run all unit tests and fail on first failing suite with useful output.
+3. CI must run all unit tests and fail clearly on any failing suite with useful output.
 
 Acceptance criteria (must be executable)
 - `python3 -m unittest discover -s tests -v` passes.
 - `make validate` passes.
 - CI workflow includes explicit steps for tests and CLI smoke using the same commands as local checks.
-- `python3 -m unittest tests/test_benchmark_pipeline.py -v` passes.
-- `python3 -m unittest tests/test_prompt_manifest.py -v` passes.
+- `python3 -m unittest -v tests.test_benchmark_pipeline` passes.
+- `python3 -m unittest -v tests.test_prompt_manifest` passes.
 
 Anti-scope (do NOT do)
 - Do not add integration tests that require attached physical devices.

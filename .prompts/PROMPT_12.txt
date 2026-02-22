@@ -29,13 +29,15 @@ Required implementation details
 1. Add explicit repository licensing and changelog conventions.
 2. Resolve naming drift (`benchmark` vs `benchmarks`) by choosing current canonical path and updating docs/manifests to match.
 3. Add machine-readable prompt-output manifest linking prompt IDs to expected artifact paths.
+   - Minimum manifest keys per prompt entry: `prompt_id`, `file`, `expected_outputs`, `stage`.
 4. Add lightweight governance enforcement checks (existence/format checks) to CI and `make validate`.
+5. Extend the CI workflow created/updated in `PROMPT_09`; do not remove prior checks.
 
 Acceptance criteria (must be executable)
 - `test -f LICENSE && test -f CHANGELOG.md` exits 0.
-- `python3 -m unittest tests/test_repo_hygiene.py -v` passes.
+- `python3 -m unittest -v tests.test_repo_hygiene` passes.
 - `make validate` passes.
-- `rg 'artifacts/benchmarks/' README.md artifacts/foundations/repo-tree.monorepo.txt artifacts/benchmark artifacts/contracts || true` returns no stale references if canonical path is `artifacts/benchmark/`.
+- `! rg -n 'artifacts/benchmarks/' README.md artifacts/foundations/repo-tree.monorepo.txt artifacts/benchmark artifacts/contracts` succeeds if canonical path is `artifacts/benchmark/`.
 - `.prompts/PROMPT_OUTPUTS.manifest.json` parses as valid JSON and includes Stage-1 + Stage-2 prompt entries.
 
 Anti-scope (do NOT do)

@@ -20,7 +20,8 @@ Artifacts to create/modify
 - Modify: `templates/swift/*` (as needed)
 - Modify: `templates/flutter/*` (as needed)
 - Modify: `templates/react-native/*` (as needed)
-- Create: `artifacts/contracts/GENERATOR_OUTPUT.contract.json`
+- Create: `artifacts/contracts/GENERATOR_OUTPUT.schema.v1.json`
+- Create or modify: `artifacts/spec-examples/LAB_99_GENERATOR_SMOKE.spec.v2.json`
 - Create or modify: `tests/test_generator_contract.py`
 - Modify: `README.md`
 
@@ -28,14 +29,15 @@ Required implementation details
 1. Add unresolved-placeholder detection:
    - generation fails if any `{{...}}` token remains in rendered outputs.
 2. Add `--profile runnable-lite` (default may remain current) to emit required bootstrap metadata files per platform.
-3. Emit a small machine-readable generation manifest in each generated lab folder (for later drift checks).
-4. Validate generated output against `GENERATOR_OUTPUT.contract.json` in tests.
+3. Add `--out-root <dir>` so generator validation can run in a scratch directory without touching canonical hand-written labs.
+4. Emit a small machine-readable generation manifest in each generated lab folder (for later drift checks).
+5. Validate generated output against `artifacts/contracts/GENERATOR_OUTPUT.schema.v1.json` in tests.
 
 Acceptance criteria (must be executable)
 - `./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --dry-run` exits 0.
-- `./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --force` exits 0 and writes scaffolds.
-- `rg '{{[A-Z_]+}}' kotlin-android/labs/LAB_01_SENSOR_TOGGLE_APP swift-ios/labs/LAB_01_SENSOR_TOGGLE_APP flutter/labs/LAB_01_SENSOR_TOGGLE_APP react-native/labs/LAB_01_SENSOR_TOGGLE_APP` returns no matches for newly generated files.
-- `python3 -m unittest tests/test_generator_contract.py -v` passes.
+- `mkdir -p .tmp/stage2 && ./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_99_GENERATOR_SMOKE.spec.v2.json --force --profile runnable-lite --out-root .tmp/stage2/generated` exits 0 and writes scaffolds without modifying canonical `LAB_01_SENSOR_TOGGLE_APP` directories.
+- `! rg -n '{{[A-Z_]+}}' .tmp/stage2/generated` succeeds (no unresolved placeholders in generated output).
+- `python3 -m unittest -v tests.test_generator_contract` passes.
 
 Anti-scope (do NOT do)
 - Do not generate full Xcode project files from scratch.
@@ -49,7 +51,7 @@ Overengineering guardrails
 
 Risks and mitigations
 - Risk: accidental overwrite of hand-written lab files.
-  - Mitigation: preserve `--force` gating and clearly log files touched.
+  - Mitigation: preserve `--force` gating, add `--out-root` for scratch generation, and clearly log files touched.
 - Risk: contract too strict for platform differences.
   - Mitigation: define platform-specific minimums within one shared contract.
 

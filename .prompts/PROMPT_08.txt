@@ -18,6 +18,7 @@ Artifacts to create/modify
 - Create: `artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json`
 - Create: `scripts/dev/doctor.sh`
 - Create: `scripts/dev/bringup_lab01.sh`
+- Create: `scripts/dev/check_lab01.sh`
 - Create: `scripts/dev/teardown_lab01.sh`
 - Modify: `Makefile`
 - Modify: `README.md`
@@ -27,11 +28,11 @@ Artifacts to create/modify
 
 Required implementation details
 1. Add a valid LAB_SPEC v2 instance under `artifacts/spec-examples/` that the `generate` command accepts.
-2. Add `doctor` checks (script or CLI subcommand) for required local tools used by current non-native checks (`python3`, `rg`, shell availability).
+2. Add `doctor` checks (script or CLI subcommand) for required local tools used by current non-native checks (`python3`, shell availability, and `rg` if available with `grep` fallback noted).
 3. Add bring-up/check/teardown scripts that are idempotent and safe:
    - bring-up: run deterministic repo-level checks only (no emulator/device launch)
    - check: use existing validations (`make validate`, CLI smoke)
-   - teardown: remove only temp/generated files created by bring-up scripts
+   - teardown: remove only temp/generated files created by bring-up/check scripts under a dedicated temp root (e.g., `.tmp/stage2/`)
 4. In `generate`, detect schema-file misuse and print a targeted error that suggests the spec-examples path.
 
 Acceptance criteria (must be executable)
@@ -40,6 +41,7 @@ Acceptance criteria (must be executable)
 - `bash scripts/dev/doctor.sh` exits 0 on a correctly configured dev shell.
 - `bash scripts/dev/bringup_lab01.sh` exits 0.
 - Running `bash scripts/dev/bringup_lab01.sh` a second time also exits 0 (idempotent).
+- `bash scripts/dev/check_lab01.sh` exits 0.
 - `bash scripts/dev/teardown_lab01.sh` exits 0 and does not delete tracked source artifacts.
 - `python3 -m unittest discover -s tests -v` passes.
 
@@ -57,7 +59,7 @@ Risks and mitigations
 - Risk: false positives in doctor checks.
   - Mitigation: check only tools required by repository-level commands in this stage.
 - Risk: teardown accidentally removes user files.
-  - Mitigation: constrain deletions to a dedicated temp directory under repo root.
+  - Mitigation: constrain deletions to a dedicated temp directory under repo root (e.g., `.tmp/stage2/`) and require path guard checks before deletion.
 
 Evidence to include in diff summary
 - Exact CLI error text for schema misuse.

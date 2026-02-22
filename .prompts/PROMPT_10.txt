@@ -16,6 +16,7 @@ Objective
 
 Artifacts to create/modify
 - Create: `cli-tools/benchmark_collect.py`
+- Create: `cli-tools/benchmark_parsers/__init__.py`
 - Create: `cli-tools/benchmark_parsers/android_parser.py`
 - Create: `cli-tools/benchmark_parsers/ios_parser.py`
 - Create: `cli-tools/benchmark_parsers/flutter_parser.py`
@@ -39,12 +40,14 @@ Required implementation details
    - cold start p95
    - idle memory p95
    - CPU during GPS p95
+5. Define and document fixture-to-results wiring so parser-derived outputs land in `artifacts/benchmark/results/<platform>/<lab_id>/` before unified normalization runs.
+6. `tests/test_benchmark_parsers.py` must exercise all four parser modules (Android, iOS, Flutter, React Native) with at least one fixture each.
 
 Acceptance criteria (must be executable)
-- `python3 cli-tools/benchmark_collect.py --lab-id LAB_01_SENSOR_TOGGLE_APP --platform kotlin_android --input artifacts/benchmark/fixtures/android --out /tmp/bench_android.json` exits 0.
+- `python3 cli-tools/benchmark_collect.py --lab-id LAB_01_SENSOR_TOGGLE_APP --platform kotlin_android --input artifacts/benchmark/fixtures/android --out \"$(mktemp -d)/bench_android.json\"` exits 0. (Unix shell)
 - `./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP` exits 0 when fixture-derived inputs exist.
-- `python3 -m unittest tests/test_benchmark_parsers.py -v` passes.
-- `python3 -m unittest tests/test_benchmark_regression.py -v` passes.
+- `python3 -m unittest -v tests.test_benchmark_parsers` passes.
+- `python3 -m unittest -v tests.test_benchmark_regression` passes.
 - `make benchmark-normalize` exits 0.
 
 Anti-scope (do NOT do)
