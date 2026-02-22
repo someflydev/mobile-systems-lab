@@ -1,0 +1,71 @@
+{
+  "schema_version": "lab_spec.v2",
+  "lab_id": "LAB_01_SENSOR_TOGGLE_APP",
+  "title": "Sensor Toggle App",
+  "difficulty_level": 2,
+  "canonical_features_used": [
+    "lifecycle",
+    "view_composition",
+    "local_state",
+    "persistent_state",
+    "side_effects",
+    "permissions",
+    "sensors",
+    "storage",
+    "config_import_export"
+  ],
+  "sensors_used": [
+    "accelerometer",
+    "gps"
+  ],
+  "storage_used": [
+    "key_value",
+    "file_system"
+  ],
+  "state_complexity_level": "S4_streaming_effects",
+  "state_model_type": "observable_mvvm",
+  "async_complexity": "A3_multi_stream_orchestrated",
+  "expected_runtime_constraints": [
+    "cold_start_budget",
+    "frame_budget_16ms",
+    "battery_budget",
+    "permission_denied_path",
+    "process_recreation"
+  ],
+  "config_schema_version": "config.v1",
+  "ui_components_required": [
+    "title_text",
+    "status_text",
+    "toggle_switch",
+    "primary_button",
+    "secondary_button"
+  ],
+  "background_processing_required": false,
+  "performance_goal": {
+    "startup_ms_p95_max": 1500,
+    "frame_time_ms_p95_max": 16.67,
+    "memory_mb_peak_max": 220,
+    "battery_drain_percent_10min_max": 2.5
+  },
+  "performance_budget": {
+    "max_dependencies_per_platform": 12,
+    "max_third_party_libraries": 4,
+    "max_files_generated": 24,
+    "max_sensor_concurrency": 2,
+    "max_background_tasks": 0,
+    "max_config_branches": 4
+  },
+  "expected_permissions": [
+    "motion",
+    "location_when_in_use",
+    "file_read_write"
+  ],
+  "device_constraints": {
+    "physical_device_required": true,
+    "android_min_api": 26,
+    "ios_min_version": "16.0",
+    "network_required": false,
+    "battery_sensitive": true,
+    "emulator_supported": false
+  }
+}

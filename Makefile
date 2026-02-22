@@ -1,4 +1,5 @@
-.PHONY: validate schema-check prompt-check cli-help compare-lab01 benchmark-normalize
+.PHONY: validate schema-check prompt-check cli-help compare-lab01 benchmark-normalize \
+	doctor bringup-lab01 check-lab01 teardown-lab01
 
 validate: schema-check prompt-check
 
@@ -22,3 +23,15 @@ compare-lab01:
 
 benchmark-normalize:
 	./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP
+
+doctor:
+	bash scripts/dev/doctor.sh
+
+bringup-lab01:
+	bash scripts/dev/bringup_lab01.sh
+
+check-lab01:
+	bash scripts/dev/check_lab01.sh
+
+teardown-lab01:
+	bash scripts/dev/teardown_lab01.sh

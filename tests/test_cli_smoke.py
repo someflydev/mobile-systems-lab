@@ -31,6 +31,30 @@ class CliSmokeTest(unittest.TestCase):
             self.assertEqual(proc.returncode, 0, msg=proc.stderr + proc.stdout)
             self.assertIn("dry-run", proc.stdout)
 
+    def test_generate_dry_run_from_repo_spec_example(self):
+        spec_path = ROOT / "artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json"
+        proc = subprocess.run(
+            [str(CLI), "generate", str(spec_path), "--dry-run"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr + proc.stdout)
+        self.assertIn("dry-run", proc.stdout)
+
+    def test_generate_rejects_schema_file_with_actionable_hint(self):
+        schema_path = ROOT / "artifacts/contracts/LAB_SPEC.v2.json"
+        proc = subprocess.run(
+            [str(CLI), "generate", str(schema_path), "--dry-run"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertNotEqual(proc.returncode, 0)
+        combined = proc.stdout + proc.stderr
+        self.assertIn("artifacts/spec-examples", combined)
+        self.assertIn("schema", combined.lower())
+
     def test_compare_existing_lab(self):
         proc = subprocess.run(
             [str(CLI), "compare", "LAB_01_SENSOR_TOGGLE_APP"],

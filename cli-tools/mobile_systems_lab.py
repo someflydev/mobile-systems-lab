@@ -85,6 +85,16 @@ def ensure_v2_required(spec: Dict[str, Any]) -> None:
         raise ValueError(f"LAB_SPEC.v2 missing required keys: {', '.join(missing)}")
 
 
+def looks_like_lab_spec_schema(spec: Dict[str, Any], spec_path: Path) -> bool:
+    try:
+        if spec_path.resolve() == (CONTRACTS_ROOT / "LAB_SPEC.v2.json").resolve():
+            return True
+    except FileNotFoundError:
+        pass
+    schema_markers = {"$schema", "properties", "required", "examples"}
+    return "lab_id" not in spec and spec.get("type") == "object" and schema_markers.issubset(spec.keys())
+
+
 def render_template(content: str, replacements: Dict[str, str]) -> str:
     rendered = content
     for key, value in replacements.items():
@@ -156,7 +166,22 @@ def platform_specific_replacements(spec: Dict[str, Any], mapping: Dict[str, Any]
 def command_generate(args: argparse.Namespace) -> int:
     spec_path = Path(args.spec).resolve()
     spec = load_json(spec_path)
-    ensure_v2_required(spec)
+    if looks_like_lab_spec_schema(spec, spec_path):
+        raise RuntimeError(
+            "Input appears to be the LAB_SPEC.v2 schema, not a concrete lab spec instance. "
+            "Use a spec file under artifacts/spec-examples/ (for example: "
+            "artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json)."
+        )
+    try:
+        ensure_v2_required(spec)
+    except ValueError as exc:
+        schema_hint = ""
+        if "examples" in spec and "properties" in spec and "lab_id" not in spec:
+            schema_hint = (
+                " This file looks like a schema definition. Try a concrete spec instance in "
+                "artifacts/spec-examples/."
+            )
+        raise RuntimeError(f"{exc}.{schema_hint}".rstrip())
 
     mapping = load_json(CONTRACTS_ROOT / "CANONICAL_MAPPING.json")
     lab_id = spec["lab_id"]
@@ -164,7 +189,7 @@ def command_generate(args: argparse.Namespace) -> int:
     for platform, out_root in PLATFORMS.items():
         template_root = TEMPLATES_ROOT / platform
         target_root = out_root / lab_id
-        if target_root.exists() and not args.force:
+        if target_root.exists() and not (args.force or args.dry_run):
             raise RuntimeError(
                 f"Target exists: {target_root}. Use --force to overwrite templates in-place."
             )

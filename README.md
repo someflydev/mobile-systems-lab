@@ -18,11 +18,25 @@ make validate
 # 2) CLI help
 ./cli-tools/mobile-systems-lab --help
 
-# 3) Generate scaffold from a v2 spec (dry run)
-./cli-tools/mobile-systems-lab generate artifacts/contracts/LAB_SPEC.v2.json --dry-run
+# 3) Generate scaffold from a concrete v2 spec instance (dry run)
+./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --dry-run
 
 # 4) Compare multi-platform presence for LAB_01
 ./cli-tools/mobile-systems-lab compare LAB_01_SENSOR_TOGGLE_APP
+```
+
+If you accidentally pass `artifacts/contracts/LAB_SPEC.v2.json` (the schema), the CLI now returns an actionable error and points to `artifacts/spec-examples/`.
+
+## Deterministic Local Workflow (Stage-2A)
+
+```bash
+# preflight environment checks (no mobile SDKs required)
+make doctor
+
+# deterministic local bring-up/check/teardown
+make bringup-lab01
+make check-lab01
+make teardown-lab01
 ```
 
 ## Platform Run Commands (LAB_01)
@@ -77,4 +91,4 @@ Normalize into unified metrics:
 - Governance: `artifacts/governance/`
 - North Star product: `artifacts/product/`
 - Templates: `templates/`
-
+- Spec examples: `artifacts/spec-examples/`
