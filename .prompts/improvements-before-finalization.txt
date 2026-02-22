@@ -1,0 +1,115 @@
+
+---
+Timestamp: 2026-02-21 17:46:44 CST
+Audit Summary:
+- Audited full prompt lineage (.prompts/PROMPT_00_s.txt through PROMPT_06_s.txt) against as-built repository artifacts.
+- Verified inventory, entrypoints, contracts, implementation folders, docs, templates, and governance outputs.
+- Assessed completeness, quality gates, run-readiness signals, and front-facing packaging opportunities.
+
+Top 10 Issues Found:
+1) P0: Flutter LAB_01 scaffold is not fully self-contained; README requires running \ first.
+2) P1: Generation engine has design artifacts but no executable \ command.
+3) P1: Benchmark harness has schemas/docs but no runnable collector/normalizer scripts.
+4) P1: Root onboarding is missing (no \/quickstart).
+5) P1: No tests and no CI workflows detected.
+6) P1: Kotlin LAB_01 relies on system \; no Gradle wrapper committed.
+7) P2: Planned repo tree and actual tree diverge (root files/cli-tools referenced but absent).
+8) P2: Naming inconsistency: \ vs planned \.
+9) P2: Prompt file convention mismatch risk: only \ exists; no paired \ files.
+10) P3: React Native typecheck/run prerequisites are under-documented for clean env reproducibility.
+
+Fixes Applied This Run:
+- POST_FLIGHT_REPORT.md
+  + Added full post-flight audit with prompt-to-artifact traceability, scoring, priority issues, and next steps.
+- FRONT_FACING_IDEAS.md
+  + Added front-facing positioning, README copy directions, demo flows, frontend roadmap, and stack recommendation.
+- .prompts/improvements-before-finalization.txt
+  + Appended this audit log section.
+
+---
+
+---
+Timestamp: 2026-02-21 17:47:02 CST
+Audit Summary:
+- Audited full prompt lineage (.prompts/PROMPT_00_s.txt through PROMPT_06_s.txt) against as-built repository artifacts.
+- Verified inventory, entrypoints, contracts, implementation folders, docs, templates, and governance outputs.
+- Assessed completeness, quality gates, run-readiness signals, and front-facing packaging opportunities.
+
+Top 10 Issues Found:
+1) P0: Flutter LAB_01 scaffold is not fully self-contained; README requires running `flutter create .` first.
+2) P1: Generation engine has design artifacts but no executable `mobile-systems-lab generate` command.
+3) P1: Benchmark harness has schemas/docs but no runnable collector/normalizer scripts.
+4) P1: Root onboarding is missing (no `README.md` quickstart).
+5) P1: No tests and no CI workflows detected.
+6) P1: Kotlin LAB_01 relies on system `gradle`; no Gradle wrapper committed.
+7) P2: Planned repo tree and actual tree diverge (root files/cli-tools referenced but absent).
+8) P2: Naming inconsistency: `artifacts/benchmark` vs planned `artifacts/benchmarks`.
+9) P2: Prompt file convention mismatch risk: only `PROMPT_*_s.txt` exists; no paired `PROMPT_XX.txt` files.
+10) P3: React Native typecheck/run prerequisites are under-documented for clean env reproducibility.
+
+Fixes Applied This Run:
+- POST_FLIGHT_REPORT.md
+  + Added full post-flight audit with prompt-to-artifact traceability, scoring, priority issues, and next steps.
+- FRONT_FACING_IDEAS.md
+  + Added front-facing positioning, README copy directions, demo flows, frontend roadmap, and stack recommendation.
+- .prompts/improvements-before-finalization.txt
+  + Appended this corrected audit log section.
+
+---
+
+---
+Timestamp: 2026-02-21 18:03:08 CST
+Audit Summary:
+- Executed P0/P1 fix loop: added root onboarding, executable CLI, benchmark collection/normalization stubs, CI, tests, and Flutter deterministic bootstrap support.
+- Re-ran local validation (`make validate`) and CLI smoke checks.
+- Re-ran and updated `POST_FLIGHT_REPORT.md` and `FRONT_FACING_IDEAS.md` with revised scoring and priorities.
+
+Top 10 Issues Found:
+1) P1: Flutter LAB_01 still depends on local platform generation step (`bootstrap_flutter_project.sh`) rather than fully committed generated platform trees.
+2) P1: Benchmark collection remains stub-based; no real parser adapters for adb/xctrace/devtools/flipper exports.
+3) P1: Generator outputs template scaffolds, not full runnable projects for all platforms.
+4) P1: Kotlin `gradlew` is a shim; full Gradle wrapper artifacts are still not committed.
+5) P1: Release hygiene still incomplete (no `LICENSE`, no `CHANGELOG.md`).
+6) P2: Naming drift remains (`artifacts/benchmark` vs planned `artifacts/benchmarks`).
+7) P2: Prompt convention still `_s`-only; no machine-readable manifest of prompt authority yet.
+8) P2: CI coverage is basic (unit + smoke only), no platform build matrix.
+9) P3: Benchmark samples generated in-repo need explicit synthetic provenance policy.
+10) P3: Root README still needs screenshots/GIF proof assets for front-facing polish.
+
+Fixes Applied This Run:
+- README.md
+  + Added root quickstart, command surface, platform run commands, benchmark flow, and repo index.
+- Makefile
+  + Added `validate`, `schema-check`, `prompt-check`, `cli-help`, `compare-lab01`, `benchmark-normalize` targets.
+- .editorconfig
+  + Added editor/format defaults for consistent text/code style.
+- .gitignore
+  + Added runtime/toolchain/benchmark artifact ignore rules.
+- cli-tools/mobile_systems_lab.py
+  + Added executable CLI with `generate|compare|benchmark|mutate` subcommands.
+- cli-tools/mobile-systems-lab
+  + Added shell entrypoint wrapper for Python CLI.
+- cli-tools/benchmark_collect_stub.py
+  + Added BENCHMARK_RESULT stub emitter.
+- cli-tools/benchmark_normalize.py
+  + Added normalization wrapper command.
+- tests/test_contracts.py
+  + Added JSON contract existence/parse checks and v2 required-key check.
+- tests/test_cli_smoke.py
+  + Added CLI help, generate dry-run, compare smoke tests.
+- .github/workflows/ci.yml
+  + Added CI workflow running unit checks and CLI smoke.
+- flutter/labs/LAB_01_SENSOR_TOGGLE_APP/bootstrap_flutter_project.sh
+  + Added deterministic Flutter platform bootstrap script.
+- flutter/labs/LAB_01_SENSOR_TOGGLE_APP/README.md
+  + Updated run path to include bootstrap script.
+- kotlin-android/labs/LAB_01_SENSOR_TOGGLE_APP/gradlew
+  + Added local gradle shim script for consistent command path.
+- kotlin-android/labs/LAB_01_SENSOR_TOGGLE_APP/README.md
+  + Updated to `./gradlew` command path.
+- POST_FLIGHT_REPORT.md
+  + Updated with post-fix scoring, revised priority findings, and new evidence.
+- FRONT_FACING_IDEAS.md
+  + Updated with post-fix packaging narrative and proof points.
+
+---

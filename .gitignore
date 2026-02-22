@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Flutter/Dart
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+
+# Android/Gradle
+.gradle/
+**/build/
+
+# iOS/Xcode
+DerivedData/
+*.xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Python
+__pycache__/
+*.pyc
+
+# Benchmark artifacts
+artifacts/benchmark/raw/

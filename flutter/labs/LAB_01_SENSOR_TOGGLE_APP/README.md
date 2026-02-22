@@ -5,6 +5,9 @@ Minimal Flutter implementation using `ChangeNotifier`.
 ## Run (physical device)
 
 ```bash
+# 0) Generate/refresh required platform folders (android/ios)
+./bootstrap_flutter_project.sh
+
 # 1) Ensure Flutter SDK is installed and doctor is clean
 flutter doctor -v
 
@@ -39,12 +42,4 @@ adb emu geo fix -122.084 37.422
 - Default config: `assets/config.json`
 - Schema: `assets/config.schema.v1.json`
 - Export path: app documents directory `lab01-config-export.json`
-
-## Note
-
-If this folder was not created by `flutter create`, generate platform folders once:
-
-```bash
-flutter create .
-```
 

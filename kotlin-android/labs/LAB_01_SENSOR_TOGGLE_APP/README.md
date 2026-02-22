@@ -9,7 +9,7 @@ Minimal Android native implementation using `ViewModel + Flow`.
 adb devices -l
 
 # 2) Build + install debug
-gradle :app:installDebug
+./gradlew :app:installDebug
 
 # 3) View logs
 adb logcat | rg "lab01|FATAL|E/"
@@ -32,3 +32,4 @@ adb emu geo fix -122.084 37.422
 
 - Default config: `app/src/main/assets/config.json`
 - Schema: `app/src/main/assets/config.schema.v1.json`
+

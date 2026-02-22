@@ -1,0 +1,136 @@
+{
+  "schema_version": "unified_metrics.v1",
+  "benchmark_id": "bench_20260222T000107Z",
+  "lab_id": "LAB_01_SENSOR_TOGGLE_APP",
+  "scenario": "combined_sensors",
+  "normalization_context": {
+    "device_class": "mid",
+    "os_version_locked": true,
+    "build_type": "debug",
+    "sample_window_sec": 300,
+    "winsorization_pct": 5,
+    "unit_conventions": {
+      "time": "ms",
+      "memory": "MB",
+      "cpu": "pct",
+      "throughput_accel": "events_per_sec",
+      "throughput_gps": "events_per_min",
+      "battery": "pct_per_hour"
+    }
+  },
+  "platform_metrics": [
+    {
+      "platform": "kotlin_android",
+      "cold_start_ms_p95": 1500.0,
+      "warm_start_ms_p95": 575.0,
+      "memory_idle_mb_p95": 151.0,
+      "memory_streaming_mb_p95": 177.5,
+      "cpu_idle_pct_p95": 5.5,
+      "cpu_accel_pct_p95": 8.5,
+      "cpu_gps_pct_p95": 12.5,
+      "jank_rate_pct": 0.0,
+      "frame_time_p95_ms": 16.67,
+      "accel_throughput_eps_p50": 0.0,
+      "gps_throughput_epm_p50": 0.0,
+      "battery_drain_pct_per_hour": 0.0,
+      "background_reliability_pct": 100.0,
+      "config_load_ms_p95": 13.5,
+      "score": 0.0
+    },
+    {
+      "platform": "swift_ios",
+      "cold_start_ms_p95": 1500.0,
+      "warm_start_ms_p95": 575.0,
+      "memory_idle_mb_p95": 151.0,
+      "memory_streaming_mb_p95": 177.5,
+      "cpu_idle_pct_p95": 5.5,
+      "cpu_accel_pct_p95": 8.5,
+      "cpu_gps_pct_p95": 12.5,
+      "jank_rate_pct": 0.0,
+      "frame_time_p95_ms": 16.67,
+      "accel_throughput_eps_p50": 0.0,
+      "gps_throughput_epm_p50": 0.0,
+      "battery_drain_pct_per_hour": 0.0,
+      "background_reliability_pct": 100.0,
+      "config_load_ms_p95": 13.5,
+      "score": 0.0
+    },
+    {
+      "platform": "flutter",
+      "cold_start_ms_p95": 1500.0,
+      "warm_start_ms_p95": 575.0,
+      "memory_idle_mb_p95": 151.0,
+      "memory_streaming_mb_p95": 177.5,
+      "cpu_idle_pct_p95": 5.5,
+      "cpu_accel_pct_p95": 8.5,
+      "cpu_gps_pct_p95": 12.5,
+      "jank_rate_pct": 0.0,
+      "frame_time_p95_ms": 16.67,
+      "accel_throughput_eps_p50": 0.0,
+      "gps_throughput_epm_p50": 0.0,
+      "battery_drain_pct_per_hour": 0.0,
+      "background_reliability_pct": 100.0,
+      "config_load_ms_p95": 13.5,
+      "score": 0.0
+    },
+    {
+      "platform": "react_native",
+      "cold_start_ms_p95": 1500.0,
+      "warm_start_ms_p95": 575.0,
+      "memory_idle_mb_p95": 151.0,
+      "memory_streaming_mb_p95": 177.5,
+      "cpu_idle_pct_p95": 5.5,
+      "cpu_accel_pct_p95": 8.5,
+      "cpu_gps_pct_p95": 12.5,
+      "jank_rate_pct": 0.0,
+      "frame_time_p95_ms": 16.67,
+      "accel_throughput_eps_p50": 0.0,
+      "gps_throughput_epm_p50": 0.0,
+      "battery_drain_pct_per_hour": 0.0,
+      "background_reliability_pct": 100.0,
+      "config_load_ms_p95": 13.5,
+      "score": 0.0
+    }
+  ],
+  "comparative_summary": {
+    "best_cold_start": {
+      "platform": "kotlin_android",
+      "value": 1500.0
+    },
+    "best_memory_idle": {
+      "platform": "kotlin_android",
+      "value": 151.0
+    },
+    "best_frame_stability": {
+      "platform": "kotlin_android",
+      "value": 16.67
+    },
+    "best_battery": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "best_background_reliability": {
+      "platform": "kotlin_android",
+      "value": 100.0
+    },
+    "overall_rank": [
+      {
+        "platform": "kotlin_android",
+        "value": 1500.0
+      },
+      {
+        "platform": "swift_ios",
+        "value": 1500.0
+      },
+      {
+        "platform": "flutter",
+        "value": 1500.0
+      },
+      {
+        "platform": "react_native",
+        "value": 1500.0
+      }
+    ]
+  },
+  "regression_alerts": []
+}

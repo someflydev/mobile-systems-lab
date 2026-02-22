@@ -1,0 +1,46 @@
+{
+  "schema_version": "unified_metrics.v1",
+  "benchmark_id": "bench_20260221T235954Z",
+  "lab_id": "LAB_01_SENSOR_TOGGLE_APP",
+  "scenario": "combined_sensors",
+  "normalization_context": {
+    "device_class": "mid",
+    "os_version_locked": true,
+    "build_type": "debug",
+    "sample_window_sec": 300,
+    "winsorization_pct": 5,
+    "unit_conventions": {
+      "time": "ms",
+      "memory": "MB",
+      "cpu": "pct",
+      "throughput_accel": "events_per_sec",
+      "throughput_gps": "events_per_min",
+      "battery": "pct_per_hour"
+    }
+  },
+  "platform_metrics": [],
+  "comparative_summary": {
+    "best_cold_start": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "best_memory_idle": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "best_frame_stability": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "best_battery": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "best_background_reliability": {
+      "platform": "kotlin_android",
+      "value": 0.0
+    },
+    "overall_rank": []
+  },
+  "regression_alerts": []
+}
