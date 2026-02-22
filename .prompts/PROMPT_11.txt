@@ -1,0 +1,59 @@
+Title: Stage-2D Generator Quality: Runnable-Lite Scaffolds + Render Validation
+
+You are a Cross-Platform Scaffold Engineer.
+
+Goal
+- Improve scaffold usefulness without overbuilding: generated outputs should be runnable-lite and free of unresolved placeholders.
+
+Context to honor
+- Keep template-driven approach.
+- Do not attempt full production project generation for all platforms in one pass.
+- Preserve existing template paths.
+
+Objective
+- Add generator safeguards and a minimal runnable-lite profile contract per platform.
+- Ensure generated lab directories contain the minimum set of files to start platform bootstrap quickly.
+
+Artifacts to create/modify
+- Modify: `cli-tools/mobile_systems_lab.py`
+- Modify: `templates/kotlin/*` (as needed)
+- Modify: `templates/swift/*` (as needed)
+- Modify: `templates/flutter/*` (as needed)
+- Modify: `templates/react-native/*` (as needed)
+- Create: `artifacts/contracts/GENERATOR_OUTPUT.contract.json`
+- Create or modify: `tests/test_generator_contract.py`
+- Modify: `README.md`
+
+Required implementation details
+1. Add unresolved-placeholder detection:
+   - generation fails if any `{{...}}` token remains in rendered outputs.
+2. Add `--profile runnable-lite` (default may remain current) to emit required bootstrap metadata files per platform.
+3. Emit a small machine-readable generation manifest in each generated lab folder (for later drift checks).
+4. Validate generated output against `GENERATOR_OUTPUT.contract.json` in tests.
+
+Acceptance criteria (must be executable)
+- `./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --dry-run` exits 0.
+- `./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --force` exits 0 and writes scaffolds.
+- `rg '{{[A-Z_]+}}' kotlin-android/labs/LAB_01_SENSOR_TOGGLE_APP swift-ios/labs/LAB_01_SENSOR_TOGGLE_APP flutter/labs/LAB_01_SENSOR_TOGGLE_APP react-native/labs/LAB_01_SENSOR_TOGGLE_APP` returns no matches for newly generated files.
+- `python3 -m unittest tests/test_generator_contract.py -v` passes.
+
+Anti-scope (do NOT do)
+- Do not generate full Xcode project files from scratch.
+- Do not introduce template engines beyond simple string replacement already used.
+- Do not add dependency injection or framework-level architecture in generator.
+
+Overengineering guardrails
+- Keep generator code in existing CLI module unless file length becomes unmanageable.
+- Add only one output contract schema.
+- Prefer explicit required-file lists over inferred graph logic.
+
+Risks and mitigations
+- Risk: accidental overwrite of hand-written lab files.
+  - Mitigation: preserve `--force` gating and clearly log files touched.
+- Risk: contract too strict for platform differences.
+  - Mitigation: define platform-specific minimums within one shared contract.
+
+Evidence to include in diff summary
+- Placeholder detection failure example.
+- Generator output manifest example.
+- Contract test output.

@@ -1,0 +1,69 @@
+Title: Stage-2C Benchmark Harness Real Parsers + Regression Gate
+
+You are a Mobile Systems Performance Engineer.
+
+Goal
+- Deliver the report’s single most-leverage improvement: replace stub-only benchmark ingestion with real parser adapters and add regression detection gates.
+
+Context to honor
+- Must stay compatible with existing benchmark schemas.
+- Must run in CI without requiring live devices.
+- Use fixture logs for parser tests.
+
+Objective
+- Introduce parser modules that convert representative platform log exports into `BENCHMARK_RESULT` payloads.
+- Add regression detection against a checked-in baseline unified metrics file.
+
+Artifacts to create/modify
+- Create: `cli-tools/benchmark_collect.py`
+- Create: `cli-tools/benchmark_parsers/android_parser.py`
+- Create: `cli-tools/benchmark_parsers/ios_parser.py`
+- Create: `cli-tools/benchmark_parsers/flutter_parser.py`
+- Create: `cli-tools/benchmark_parsers/react_native_parser.py`
+- Create: `artifacts/benchmark/fixtures/android/*.txt`
+- Create: `artifacts/benchmark/fixtures/ios/*.txt`
+- Create: `artifacts/benchmark/fixtures/flutter/*.json`
+- Create: `artifacts/benchmark/fixtures/react_native/*.json`
+- Create: `artifacts/benchmark/baselines/LAB_01_SENSOR_TOGGLE_APP.UNIFIED_METRICS.baseline.json`
+- Modify: `cli-tools/mobile_systems_lab.py`
+- Modify: `Makefile`
+- Create or modify: `tests/test_benchmark_parsers.py`
+- Create or modify: `tests/test_benchmark_regression.py`
+- Modify docs: `artifacts/benchmark/benchmark-protocol-checklist.md` and/or `README.md`
+
+Required implementation details
+1. Parser adapters must ingest fixture files and produce schema-shaped metrics with provenance metadata.
+2. Add `provenance` marker (`synthetic_stub` vs `parsed_fixture` vs `measured_device`) in benchmark outputs.
+3. Add CLI benchmark regression mode (or companion command) that compares current unified metrics to baseline thresholds.
+4. Regression gate must detect increases in at least:
+   - cold start p95
+   - idle memory p95
+   - CPU during GPS p95
+
+Acceptance criteria (must be executable)
+- `python3 cli-tools/benchmark_collect.py --lab-id LAB_01_SENSOR_TOGGLE_APP --platform kotlin_android --input artifacts/benchmark/fixtures/android --out /tmp/bench_android.json` exits 0.
+- `./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP` exits 0 when fixture-derived inputs exist.
+- `python3 -m unittest tests/test_benchmark_parsers.py -v` passes.
+- `python3 -m unittest tests/test_benchmark_regression.py -v` passes.
+- `make benchmark-normalize` exits 0.
+
+Anti-scope (do NOT do)
+- Do not require attached devices for parser tests.
+- Do not add heavyweight data processing dependencies.
+- Do not implement dashboard/frontend visualization.
+
+Overengineering guardrails
+- Keep parser modules as pure functions from text/json -> dict.
+- Use explicit field mapping; avoid dynamic plugin loading.
+- Keep baseline/regression config as plain JSON.
+
+Risks and mitigations
+- Risk: fixture formats drift from real tooling output.
+  - Mitigation: include fixture source notes and parser assumptions in file headers/docs.
+- Risk: false regression alarms.
+  - Mitigation: use percentage thresholds and minimum absolute deltas.
+
+Evidence to include in diff summary
+- Parser module list and fixture inventory.
+- Example parsed BENCHMARK_RESULT output with provenance.
+- Regression gate pass/fail example output.

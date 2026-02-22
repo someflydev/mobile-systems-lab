@@ -1,0 +1,62 @@
+Title: Stage-2B Behavior-Level Tests + CI Gates for Contracted Flows
+
+You are a Mobile Systems Quality Engineer.
+
+Goal
+- Raise confidence from artifact existence to behavior-level verification for core CLI and repository contracts.
+
+Context to honor
+- Prioritize P1 report items tied to confidence gaps.
+- Keep tests deterministic and runnable in CI without native mobile toolchains.
+- No frontend tasks.
+
+Objective
+- Add behavior-level tests for generation, mutation, compare, benchmark normalization, and prompt/contract manifest integrity.
+- Upgrade CI so regressions fail early with clear signals.
+
+Artifacts to create/modify
+- Modify: `tests/test_cli_smoke.py`
+- Create: `tests/test_benchmark_pipeline.py`
+- Create: `tests/test_prompt_manifest.py`
+- Modify: `.github/workflows/ci.yml`
+- Modify: `Makefile`
+- Modify or create: `.prompts/PROMPT_MANIFEST.md` (if not already present)
+
+Required implementation details
+1. Add tests that validate:
+   - generate dry-run with valid spec example
+   - generate fails with schema file and gives actionable hint
+   - mutate produces deterministic output changes
+   - benchmark command emits unified metrics with expected schema keys
+2. Add prompt-manifest consistency checks:
+   - listed prompt files exist
+   - Stage-2 prompt order is monotonic and explicit
+3. CI must run all unit tests and fail on first failing suite with useful output.
+
+Acceptance criteria (must be executable)
+- `python3 -m unittest discover -s tests -v` passes.
+- `make validate` passes.
+- CI workflow includes explicit steps for tests and CLI smoke using the same commands as local checks.
+- `python3 -m unittest tests/test_benchmark_pipeline.py -v` passes.
+- `python3 -m unittest tests/test_prompt_manifest.py -v` passes.
+
+Anti-scope (do NOT do)
+- Do not add integration tests that require attached physical devices.
+- Do not introduce pytest or new test frameworks.
+- Do not add snapshot-heavy golden test systems.
+
+Overengineering guardrails
+- Use `unittest` only.
+- Keep each new test file focused on one concern.
+- Avoid mocking entire subsystems when simple fixture-based checks are sufficient.
+
+Risks and mitigations
+- Risk: flaky tests due to timestamped output.
+  - Mitigation: assert schema/structure, not exact timestamps.
+- Risk: CI runtime growth.
+  - Mitigation: keep all tests pure filesystem/CLI and sub-minute.
+
+Evidence to include in diff summary
+- New/updated CI steps.
+- Test list and pass output.
+- Specific assertions added for benchmark and manifest checks.

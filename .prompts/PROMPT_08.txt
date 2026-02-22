@@ -1,0 +1,65 @@
+Title: Stage-2A Deterministic Bring-Up/Check/Teardown + Spec Input Clarity
+
+You are a Cross-Platform Mobile Systems Maintainer.
+
+Goal
+- Close Stage-2 deterministic workflow gaps from POST_FLIGHT_REPORT P1 items by adding a reproducible local bring-up/check/teardown path and removing CLI confusion between LAB spec schema and LAB spec instance files.
+
+Context to honor
+- Use POST_FLIGHT_REPORT.md as source of truth for priorities.
+- Keep fixes minimal and local; no heavy dependencies.
+- Do not perform frontend/front-facing website work.
+
+Objective
+- Provide one deterministic bring-up flow, one deterministic validation flow, and one deterministic teardown flow that can run on a machine without full native mobile toolchains.
+- Make CLI error handling explicit when users pass `artifacts/contracts/LAB_SPEC.v2.json` (schema) instead of a concrete spec instance.
+
+Artifacts to create/modify
+- Create: `artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json`
+- Create: `scripts/dev/doctor.sh`
+- Create: `scripts/dev/bringup_lab01.sh`
+- Create: `scripts/dev/teardown_lab01.sh`
+- Modify: `Makefile`
+- Modify: `README.md`
+- Modify: `cli-tools/mobile_systems_lab.py`
+- Modify: `tests/test_cli_smoke.py`
+- Create or modify: `tests/test_dev_workflow.py`
+
+Required implementation details
+1. Add a valid LAB_SPEC v2 instance under `artifacts/spec-examples/` that the `generate` command accepts.
+2. Add `doctor` checks (script or CLI subcommand) for required local tools used by current non-native checks (`python3`, `rg`, shell availability).
+3. Add bring-up/check/teardown scripts that are idempotent and safe:
+   - bring-up: run deterministic repo-level checks only (no emulator/device launch)
+   - check: use existing validations (`make validate`, CLI smoke)
+   - teardown: remove only temp/generated files created by bring-up scripts
+4. In `generate`, detect schema-file misuse and print a targeted error that suggests the spec-examples path.
+
+Acceptance criteria (must be executable)
+- `./cli-tools/mobile-systems-lab generate artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json --dry-run` exits 0.
+- `./cli-tools/mobile-systems-lab generate artifacts/contracts/LAB_SPEC.v2.json --dry-run` exits non-zero and includes guidance mentioning `artifacts/spec-examples/`.
+- `bash scripts/dev/doctor.sh` exits 0 on a correctly configured dev shell.
+- `bash scripts/dev/bringup_lab01.sh` exits 0.
+- Running `bash scripts/dev/bringup_lab01.sh` a second time also exits 0 (idempotent).
+- `bash scripts/dev/teardown_lab01.sh` exits 0 and does not delete tracked source artifacts.
+- `python3 -m unittest discover -s tests -v` passes.
+
+Anti-scope (do NOT do)
+- Do not add Flutter/Xcode/Android SDK hard requirements to repo-level CI.
+- Do not build or run native apps in this prompt.
+- Do not add new external Python packages.
+
+Overengineering guardrails
+- Keep scripts shell-first and under 80 lines each.
+- Prefer improving existing CLI/Makefile flows over introducing a new orchestrator framework.
+- No plugin systems, no config-heavy workflow engine.
+
+Risks and mitigations
+- Risk: false positives in doctor checks.
+  - Mitigation: check only tools required by repository-level commands in this stage.
+- Risk: teardown accidentally removes user files.
+  - Mitigation: constrain deletions to a dedicated temp directory under repo root.
+
+Evidence to include in diff summary
+- Exact CLI error text for schema misuse.
+- Output of bring-up/check/teardown commands.
+- New spec example path and its validation proof.

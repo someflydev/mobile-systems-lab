@@ -1,0 +1,60 @@
+Title: Stage-2E Release Hygiene + Naming Consistency + Governance Enforcement
+
+You are a Mobile Systems Release Steward.
+
+Goal
+- Close release-readiness and consistency gaps with minimal, enforceable repository hygiene.
+
+Context to honor
+- Address POST_FLIGHT_REPORT P1/P2 items without broad refactors.
+- Keep docs and paths consistent with current repository reality.
+- No frontend scope.
+
+Objective
+- Add minimum release metadata, normalize naming references, and enforce governance/checklist hooks in CI/local checks.
+
+Artifacts to create/modify
+- Create: `LICENSE`
+- Create: `CHANGELOG.md`
+- Create: `artifacts/governance/release-checklist.md`
+- Modify: `README.md`
+- Modify: `artifacts/foundations/repo-tree.monorepo.txt`
+- Create or modify: `.prompts/PROMPT_MANIFEST.md`
+- Create: `.prompts/PROMPT_OUTPUTS.manifest.json`
+- Modify: `Makefile`
+- Modify: `.github/workflows/ci.yml`
+- Create or modify: `tests/test_repo_hygiene.py`
+
+Required implementation details
+1. Add explicit repository licensing and changelog conventions.
+2. Resolve naming drift (`benchmark` vs `benchmarks`) by choosing current canonical path and updating docs/manifests to match.
+3. Add machine-readable prompt-output manifest linking prompt IDs to expected artifact paths.
+4. Add lightweight governance enforcement checks (existence/format checks) to CI and `make validate`.
+
+Acceptance criteria (must be executable)
+- `test -f LICENSE && test -f CHANGELOG.md` exits 0.
+- `python3 -m unittest tests/test_repo_hygiene.py -v` passes.
+- `make validate` passes.
+- `rg 'artifacts/benchmarks/' README.md artifacts/foundations/repo-tree.monorepo.txt artifacts/benchmark artifacts/contracts || true` returns no stale references if canonical path is `artifacts/benchmark/`.
+- `.prompts/PROMPT_OUTPUTS.manifest.json` parses as valid JSON and includes Stage-1 + Stage-2 prompt entries.
+
+Anti-scope (do NOT do)
+- Do not implement release automation pipelines or package publication.
+- Do not rename directories unless absolutely required; prefer reference normalization.
+- Do not rewrite historical prompt content.
+
+Overengineering guardrails
+- Keep release metadata minimal and human-maintainable.
+- Enforce only checks with clear signal/noise ratio.
+- Avoid complex policy engines; use straightforward tests/scripts.
+
+Risks and mitigations
+- Risk: CI failures from strict hygiene checks.
+  - Mitigation: keep checks deterministic and path-based.
+- Risk: manifest drift over time.
+  - Mitigation: validate manifest entries against file existence in tests.
+
+Evidence to include in diff summary
+- New license/changelog/release checklist files.
+- Canonical naming decision and updated references.
+- Governance/hygiene test outputs.
