@@ -64,6 +64,37 @@ class CliSmokeTest(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 0, msg=proc.stderr + proc.stdout)
 
+    def test_mutate_produces_deterministic_output_changes(self):
+        spec_example = ROOT / "artifacts/spec-examples/LAB_01_SENSOR_TOGGLE_APP.spec.v2.json"
+        source = json.loads(spec_example.read_text(encoding="utf-8"))
+
+        with tempfile.TemporaryDirectory() as td:
+            spec_path = Path(td) / "lab01.spec.v2.json"
+            spec_path.write_text(json.dumps(source), encoding="utf-8")
+
+            proc1 = subprocess.run(
+                [str(CLI), "mutate", "LAB_01_SENSOR_TOGGLE_APP", "--spec", str(spec_path), "--sensor-add=gyroscope"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(proc1.returncode, 0, msg=proc1.stderr + proc1.stdout)
+            mutated_path = spec_path.with_name("lab01.spec.v2.mutated.json")
+            self.assertTrue(mutated_path.exists())
+            mutated1 = json.loads(mutated_path.read_text(encoding="utf-8"))
+            self.assertIn("gyroscope", mutated1.get("sensors_used", []))
+
+            # Re-run from the original input and verify stable output.
+            proc2 = subprocess.run(
+                [str(CLI), "mutate", "LAB_01_SENSOR_TOGGLE_APP", "--spec", str(spec_path), "--sensor-add=gyroscope"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(proc2.returncode, 0, msg=proc2.stderr + proc2.stdout)
+            mutated2 = json.loads(mutated_path.read_text(encoding="utf-8"))
+            self.assertEqual(mutated1, mutated2)
+
 
 if __name__ == "__main__":
     unittest.main()

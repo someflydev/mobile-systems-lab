@@ -1,5 +1,5 @@
-.PHONY: validate schema-check prompt-check cli-help compare-lab01 benchmark-normalize \
-	doctor bringup-lab01 check-lab01 teardown-lab01
+.PHONY: validate schema-check prompt-check cli-help compare-lab01 cli-smoke ci-check \
+	benchmark-normalize doctor bringup-lab01 check-lab01 teardown-lab01
 
 validate: schema-check prompt-check
 
@@ -20,6 +20,10 @@ cli-help:
 
 compare-lab01:
 	./cli-tools/mobile-systems-lab compare LAB_01_SENSOR_TOGGLE_APP
+
+cli-smoke: cli-help compare-lab01
+
+ci-check: validate cli-smoke
 
 benchmark-normalize:
 	./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP

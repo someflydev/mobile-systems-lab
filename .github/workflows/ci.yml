@@ -12,10 +12,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Run unit checks
+      - name: Local validation parity (`make validate`)
         run: |
-          python -m unittest discover -s tests -v
-      - name: CLI smoke
+          make validate
+      - name: CLI smoke parity (`make cli-help`, `make compare-lab01`)
         run: |
-          ./cli-tools/mobile-systems-lab --help
-          ./cli-tools/mobile-systems-lab compare LAB_01_SENSOR_TOGGLE_APP
+          make cli-help
+          make compare-lab01
