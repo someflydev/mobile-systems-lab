@@ -4,7 +4,8 @@
 Commands:
   generate <spec.json> [--dry-run] [--force]
   compare <LAB_ID>
-  benchmark <LAB_ID>
+  benchmark <LAB_ID> [--baseline <unified_baseline.json>]
+  benchmark-regress <LAB_ID> [--current <unified_metrics.json>] [--baseline <unified_baseline.json>]
   mutate <LAB_ID> --spec <spec.json> [--sensor-add=<sensor>] [--sensor-remove=<sensor>]
 """
 
@@ -17,13 +18,14 @@ import statistics
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES_ROOT = REPO_ROOT / "templates"
 CONTRACTS_ROOT = REPO_ROOT / "artifacts" / "contracts"
 REPORTS_ROOT = REPO_ROOT / "artifacts" / "reports"
 BENCH_RESULTS_ROOT = REPO_ROOT / "artifacts" / "benchmark" / "results"
+BENCH_BASELINES_ROOT = REPO_ROOT / "artifacts" / "benchmark" / "baselines"
 
 PLATFORMS = {
     "kotlin": REPO_ROOT / "kotlin-android" / "labs",
@@ -57,6 +59,86 @@ def percentile(values: List[float], p: float) -> float:
     if f == c:
         return float(sorted_vals[f])
     return float(sorted_vals[f] + (k - f) * (sorted_vals[c] - sorted_vals[f]))
+
+
+def default_baseline_path(lab_id: str) -> Path:
+    return BENCH_BASELINES_ROOT / f"{lab_id}.UNIFIED_METRICS.baseline.json"
+
+
+def latest_unified_metrics_path(lab_id: str) -> Optional[Path]:
+    unified_dir = BENCH_RESULTS_ROOT / "unified" / lab_id
+    if not unified_dir.exists():
+        return None
+    files = sorted(unified_dir.glob("*.UNIFIED_METRICS.json"))
+    return files[-1] if files else None
+
+
+def benchmark_result_provenance(sample: Dict[str, Any]) -> str:
+    tooling = sample.get("tooling", {})
+    commands = tooling.get("commands_executed", []) or []
+    for cmd in commands:
+        if isinstance(cmd, str) and cmd.startswith("provenance:"):
+            return cmd.split(":", 1)[1]
+    collector_version = str(tooling.get("collector_version", ""))
+    if collector_version.startswith("parsed_fixture"):
+        return "parsed_fixture"
+    if collector_version.startswith("stub"):
+        return "synthetic_stub"
+    if collector_version.startswith("measured_device"):
+        return "measured_device"
+    return "unknown"
+
+
+def summarize_provenance(samples: List[Dict[str, Any]]) -> Dict[str, int]:
+    counts: Dict[str, int] = {}
+    for sample in samples:
+        key = benchmark_result_provenance(sample)
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def compute_regression_alerts(current: Dict[str, Any], baseline: Dict[str, Any]) -> List[Dict[str, Any]]:
+    metrics = {
+        "cold_start_ms_p95": {"warn_pct": 10.0, "critical_pct": 20.0, "min_abs": 50.0},
+        "memory_idle_mb_p95": {"warn_pct": 10.0, "critical_pct": 20.0, "min_abs": 5.0},
+        "cpu_gps_pct_p95": {"warn_pct": 10.0, "critical_pct": 20.0, "min_abs": 1.0},
+    }
+    baseline_by_platform = {item["platform"]: item for item in baseline.get("platform_metrics", [])}
+    alerts: List[Dict[str, Any]] = []
+
+    for item in current.get("platform_metrics", []):
+        platform = item.get("platform")
+        base = baseline_by_platform.get(platform)
+        if not base:
+            continue
+        for metric, cfg in metrics.items():
+            cur_val = float(item.get(metric, 0.0))
+            base_val = float(base.get(metric, 0.0))
+            if base_val <= 0:
+                continue
+            delta = cur_val - base_val
+            if delta <= 0:
+                continue
+            delta_pct = (delta / base_val) * 100.0
+            if delta < cfg["min_abs"]:
+                continue
+            if delta_pct >= cfg["critical_pct"]:
+                severity = "critical"
+            elif delta_pct >= cfg["warn_pct"]:
+                severity = "warning"
+            else:
+                continue
+            alerts.append(
+                {
+                    "platform": platform,
+                    "metric": metric,
+                    "baseline_value": base_val,
+                    "current_value": cur_val,
+                    "delta_pct": round(delta_pct, 2),
+                    "severity": severity,
+                }
+            )
+    return alerts
 
 
 def ensure_v2_required(spec: Dict[str, Any]) -> None:
@@ -254,10 +336,14 @@ def normalize_results(lab_id: str) -> Dict[str, Any]:
             platform_files[platform] = sorted(platform_dir.glob("*.json"))
 
     platform_metrics = []
+    provenance_counts: Dict[str, int] = {}
     for platform, files in platform_files.items():
         if not files:
             continue
         samples = [load_json(p) for p in files]
+        sample_prov = summarize_provenance(samples)
+        for key, count in sample_prov.items():
+            provenance_counts[key] = provenance_counts.get(key, 0) + count
 
         cold = [float(s["summary"]["cold_start_ms_p95"]) for s in samples]
         warm = [float(s["summary"]["warm_start_ms_p50"]) for s in samples]
@@ -296,6 +382,9 @@ def normalize_results(lab_id: str) -> Dict[str, Any]:
         return {"platform": sorted_items[0]["platform"], "value": sorted_items[0][metric]}
 
     ranked = sorted(platform_metrics, key=lambda x: x["cold_start_ms_p95"])
+    if provenance_counts:
+        prov_text = ", ".join(f"{k}={v}" for k, v in sorted(provenance_counts.items()))
+        print(f"Benchmark input provenance: {prov_text}")
 
     return {
         "schema_version": "unified_metrics.v1",
@@ -335,6 +424,14 @@ def normalize_results(lab_id: str) -> Dict[str, Any]:
 def command_benchmark(args: argparse.Namespace) -> int:
     lab_id = args.lab_id
     unified = normalize_results(lab_id)
+    baseline_path = Path(args.baseline).resolve() if getattr(args, "baseline", None) else default_baseline_path(lab_id)
+    if baseline_path.exists():
+        baseline = load_json(baseline_path)
+        unified["regression_alerts"] = compute_regression_alerts(unified, baseline)
+        if unified["regression_alerts"]:
+            print(
+                f"Regression alerts vs baseline ({baseline_path}): {len(unified['regression_alerts'])}"
+            )
     out_path = BENCH_RESULTS_ROOT / "unified" / lab_id / f"{unified['benchmark_id']}.UNIFIED_METRICS.json"
     write_json(out_path, unified)
     print(f"Wrote unified metrics: {out_path}")
@@ -342,6 +439,33 @@ def command_benchmark(args: argparse.Namespace) -> int:
         print("No per-platform BENCHMARK_RESULT files found. Added empty unified shell.")
         return 1
     return 0
+
+
+def command_benchmark_regress(args: argparse.Namespace) -> int:
+    lab_id = args.lab_id
+    current_path = Path(args.current).resolve() if args.current else latest_unified_metrics_path(lab_id)
+    if not current_path or not current_path.exists():
+        raise RuntimeError(f"no unified metrics file found for {lab_id}; run benchmark first or pass --current")
+
+    baseline_path = Path(args.baseline).resolve() if args.baseline else default_baseline_path(lab_id)
+    if not baseline_path.exists():
+        raise RuntimeError(f"baseline not found: {baseline_path}")
+
+    current = load_json(current_path)
+    baseline = load_json(baseline_path)
+    alerts = compute_regression_alerts(current, baseline)
+    if not alerts:
+        print(f"No regression alerts: {lab_id}")
+        return 0
+
+    print(f"Regression alerts for {lab_id} vs {baseline_path}:")
+    for alert in alerts:
+        print(
+            "- {platform} {metric}: baseline={baseline_value} current={current_value} delta={delta_pct}% severity={severity}".format(
+                **alert
+            )
+        )
+    return 1
 
 
 def command_mutate(args: argparse.Namespace) -> int:
@@ -381,7 +505,14 @@ def build_parser() -> argparse.ArgumentParser:
 
     b = sub.add_parser("benchmark", help="Normalize benchmark results into UNIFIED_METRICS")
     b.add_argument("lab_id")
+    b.add_argument("--baseline", help="Optional baseline UNIFIED_METRICS file for regression alerts")
     b.set_defaults(func=command_benchmark)
+
+    br = sub.add_parser("benchmark-regress", help="Compare unified metrics against a baseline and fail on regressions")
+    br.add_argument("lab_id")
+    br.add_argument("--current", help="Path to current UNIFIED_METRICS file (defaults to latest for lab)")
+    br.add_argument("--baseline", help="Path to baseline UNIFIED_METRICS file (defaults to artifacts/benchmark/baselines/<LAB>.UNIFIED_METRICS.baseline.json)")
+    br.set_defaults(func=command_benchmark_regress)
 
     m = sub.add_parser("mutate", help="Mutate a LAB_SPEC with simple sensor add/remove operations")
     m.add_argument("lab_id")

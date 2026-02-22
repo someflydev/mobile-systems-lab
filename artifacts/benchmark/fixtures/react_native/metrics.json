@@ -1,0 +1,28 @@
+{
+  "device_id": "rn-fixture-01",
+  "device_model": "Pixel_7",
+  "device_class": "mid",
+  "os_version": "14",
+  "build_type": "debug",
+  "thermal_state": "warm",
+  "battery_pct_start": 82,
+  "battery_pct_end": 79,
+  "cold_start_ms_samples": [1680, 1750, 1820],
+  "warm_start_ms_samples": [620, 670, 710],
+  "memory_idle_mb_samples": [170, 176, 182],
+  "memory_sensor_stream_mb_samples": [202, 208, 214],
+  "cpu_idle_pct_samples": [5.8, 6.5, 7.1],
+  "cpu_accel_pct_samples": [9.4, 10.1, 10.8],
+  "cpu_gps_pct_samples": [15.8, 16.9, 18.1],
+  "frame_total": 5600,
+  "frame_jank": 88,
+  "frame_time_p95_ms": 19.4,
+  "accelerometer_events_per_sec": [22, 23, 23],
+  "gps_events_per_min": [9, 9, 10],
+  "estimated_drain_pct_per_hour": 26.0,
+  "battery_delta_pct_during_run": 3,
+  "background_attempts": 10,
+  "background_successful_resumes": 8,
+  "config_load_latency_ms_samples": [14, 17, 19]
+}
+

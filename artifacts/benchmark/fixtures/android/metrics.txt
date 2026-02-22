@@ -1,0 +1,27 @@
+# Source: representative adb/dumpsys-derived fixture snapshot for parser testing
+device_id=android-fixture-01
+device_model=Pixel_7
+device_class=mid
+os_version=14
+build_type=debug
+thermal_state=nominal
+battery_pct_start=84
+battery_pct_end=82
+cold_start_ms_samples=1280,1340,1410
+warm_start_ms_samples=490,515,540
+memory_idle_mb_samples=142,146,149
+memory_sensor_stream_mb_samples=168,171,176
+cpu_idle_pct_samples=3.5,4.0,4.5
+cpu_accel_pct_samples=6.5,7.2,7.8
+cpu_gps_pct_samples=10.5,11.8,12.6
+frame_total=6000
+frame_jank=48
+frame_time_p95_ms=15.8
+accelerometer_events_per_sec=24,25,25
+gps_events_per_min=10,11,11
+estimated_drain_pct_per_hour=18.0
+battery_delta_pct_during_run=2
+background_attempts=10
+background_successful_resumes=10
+config_load_latency_ms_samples=9,11,12
+

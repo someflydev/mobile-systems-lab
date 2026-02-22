@@ -80,7 +80,7 @@ def main() -> int:
         },
         "tooling": {
             "collector_version": "stub.v1",
-            "commands_executed": ["manual_capture"],
+            "commands_executed": ["provenance:synthetic_stub", "manual_capture"],
             "log_artifacts": [],
         },
         "summary": {

@@ -199,10 +199,22 @@ Use Flipper + RN performance monitor for frame and memory snapshots.
 - [ ] Unified normalized output saved as:
   `artifacts/benchmark/results/unified/<LAB_ID>/<benchmark_id>.UNIFIED_METRICS.json`
 
+### Fixture-to-results wiring (CI-safe parser validation, Stage-2C)
+
+Use fixture parsers to populate standard result paths before normalization:
+
+```bash
+make benchmark-fixtures-lab01
+./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP
+```
+
+Collector fixture entrypoints:
+- `cli-tools/benchmark_collect.py` parses representative fixture logs
+- emits schema-shaped `BENCHMARK_RESULT` JSON with provenance marker in tooling metadata (`provenance:parsed_fixture`)
+
 ## H. Acceptance / Sanity
 
 - [ ] At least 5 valid runs per platform after outlier filtering.
 - [ ] Device context fields complete in each result file.
 - [ ] No missing required metric arrays.
 - [ ] Regression detector executed and alerts emitted.
-

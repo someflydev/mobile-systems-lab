@@ -1,0 +1,27 @@
+# Source: representative xctrace/energy-log-derived fixture snapshot for parser testing
+device_id=ios-fixture-01
+device_model=iPhone14,5
+device_class=mid
+os_version=17.2
+build_type=debug
+thermal_state=nominal
+battery_pct_start=81
+battery_pct_end=80
+cold_start_ms_samples=1210,1270,1330
+warm_start_ms_samples=430,470,500
+memory_idle_mb_samples=138,141,144
+memory_sensor_stream_mb_samples=163,166,169
+cpu_idle_pct_samples=3.0,3.8,4.2
+cpu_accel_pct_samples=5.8,6.4,7.0
+cpu_gps_pct_samples=9.6,10.4,11.1
+frame_total=6200
+frame_jank=36
+frame_time_p95_ms=14.9
+accelerometer_events_per_sec=23,24,24
+gps_events_per_min=10,10,11
+estimated_drain_pct_per_hour=16.0
+battery_delta_pct_during_run=1
+background_attempts=10
+background_successful_resumes=9
+config_load_latency_ms_samples=8,9,10
+

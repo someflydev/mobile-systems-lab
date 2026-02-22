@@ -82,6 +82,14 @@ Normalize into unified metrics:
 ./cli-tools/mobile-systems-lab benchmark LAB_01_SENSOR_TOGGLE_APP
 ```
 
+Fixture-driven parser wiring (CI-safe benchmark ingestion):
+
+```bash
+make benchmark-fixtures-lab01
+make benchmark-normalize
+./cli-tools/mobile-systems-lab benchmark-regress LAB_01_SENSOR_TOGGLE_APP
+```
+
 ## Repo Index
 
 - Prompt lineage: `.prompts/`

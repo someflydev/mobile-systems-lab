@@ -1,0 +1,28 @@
+{
+  "device_id": "flutter-fixture-01",
+  "device_model": "Pixel_7",
+  "device_class": "mid",
+  "os_version": "14",
+  "build_type": "debug",
+  "thermal_state": "nominal",
+  "battery_pct_start": 83,
+  "battery_pct_end": 81,
+  "cold_start_ms_samples": [1450, 1520, 1580],
+  "warm_start_ms_samples": [560, 590, 620],
+  "memory_idle_mb_samples": [158, 162, 166],
+  "memory_sensor_stream_mb_samples": [186, 191, 196],
+  "cpu_idle_pct_samples": [4.5, 5.2, 5.8],
+  "cpu_accel_pct_samples": [8.1, 8.9, 9.6],
+  "cpu_gps_pct_samples": [12.8, 13.9, 14.7],
+  "frame_total": 5800,
+  "frame_jank": 62,
+  "frame_time_p95_ms": 17.3,
+  "accelerometer_events_per_sec": [23, 24, 24],
+  "gps_events_per_min": [9, 10, 10],
+  "estimated_drain_pct_per_hour": 22.0,
+  "battery_delta_pct_during_run": 2,
+  "background_attempts": 10,
+  "background_successful_resumes": 9,
+  "config_load_latency_ms_samples": [11, 13, 14]
+}
+
